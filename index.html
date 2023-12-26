@@ -59,8 +59,6 @@
                 }
             }
 
-            // let shouldDisplayAlarmBadge = true;
-
             const { id, idName, value, name, imgClassName, imgSrc, tagContent, alarmNum } = props.data
 
             return (
@@ -120,9 +118,23 @@
             ]
 
             // ------------------- #navOpenBtn 클릭 이벤트 -------------------
+            // const navOpenEvent = () => {
+            //     isNavVisible = !isNavVisible; 
+            //     console.log(isNavVisible)
+            // }
+
+            // ------------------- #navOpenBtn 클릭 이벤트 -------------------
             const navOpenEvent = () => {
-                isNavVisible = !isNavVisible; 
-                console.log(isNavVisible)
+                const nav = document.getElementById("implicit-nav");
+                const detailedNav = document.getElementById("explicit-nav");
+
+                if (nav.style.display === "block") {
+                    nav.style.display = "none";
+                    detailedNav.style.display = "block";
+                } else if (nav.style.display === 'none') {
+                    nav.style.display = "block";
+                    detailedNav.style.display = "none";
+                }
             }
 
             return (
@@ -132,8 +144,10 @@
                         <button id="navOpenBtn" onClick={navOpenEvent}>
                             <img id="navOpenBtnImg" src="imgs/bars-solid.svg" />
                         </button>
-                        <img id="youtubePremiumLogo" src="imgs/YouTube_Premium_logo.svg" alt="Youtube 홈" />
-                        <span id="countryCode"></span>
+                        <a href="https://www.youtube.com/" title="YouTube 홈">
+                            <img id="youtubePremiumLogo" src="imgs/YouTube_Premium_logo.svg" alt="Youtube 홈" />
+                            <span id="countryCode">KR</span>
+                        </a>
                     </div>
                     <div id="headerMiddle">
                         <span id="searchBar">
@@ -623,43 +637,37 @@
             const thumbnailDisplayNoneEvent = (e) => {
                 const thumbnail = e.currentTarget.querySelector(".thumbnail");
                 if (thumbnail) {
-                    thumbnail.style.opacity = "1"; 
                     thumbnail.style.display = "none";
-
-                    setTimeout(() => {
-                        thumbnail.style.opacity = "0"; 
-                    }, 80); 
                 }
 
                 const thumbnailVideo = e.currentTarget.querySelector(".thumbnail-video");
                 if (thumbnailVideo) {
-                    thumbnailVideo.style.opacity = "0"; 
                     thumbnailVideo.style.display = "block";
-
-                    setTimeout(() => {
-                        thumbnailVideo.style.opacity = "1"; 
-                    }, 80);
                 }
             }
 
             const thumbnailDisplayBlockEvent = (e) => {
                 const thumbnail = e.currentTarget.querySelector(".thumbnail");
                 if (thumbnail) {
-                    thumbnail.style.opacity = "0"; 
                     thumbnail.style.display = "block";
-
-                    setTimeout(() => {
-                        thumbnail.style.opacity = "1"; 
-                    }, 80); 
                 }
                 const thumbnailVideo = e.currentTarget.querySelector(".thumbnail-video");
                 if (thumbnailVideo) {
-                    thumbnailVideo.style.opacity = "1";
                     thumbnailVideo.style.display = "none";
+                }
+            }
 
-                    setTimeout(() => {
-                        thumbnailVideo.style.opacity = "0"; 
-                    }, 80); 
+            // ------------------- .contents-details 호버 이벤트 -------------------
+            const detailBtnDisplayBlockEvent = (e) => {
+                const detailBtn = e.currentTarget.querySelector(".detail-btn");
+                if (detailBtn) {
+                    detailBtn.style.display = "block";
+                }
+            }
+            const detailBtnDisplayNoneEvent = (e) => {
+                const detailBtn = e.currentTarget.querySelector(".detail-btn");
+                if (detailBtn) {
+                    detailBtn.style.display = "none";
                 }
             }
 
@@ -674,7 +682,7 @@
                             <div className="time-status"> {runningTime} </div>
                         </div>
                     </a>
-                    <div className="contents-details">
+                    <div className="contents-details" onMouseOver={detailBtnDisplayBlockEvent} onMouseOut={detailBtnDisplayNoneEvent}>
                         <a href={channelProfileUrl}>
                             <img className="avatar" src={channelProfileImgSrc} />
                         </a>
@@ -818,11 +826,13 @@
             return (
                 <React.Fragment>
                     <Header />
-                    {isNavVisible ? <Nav /> : <DetailedNav />}
+                    <Nav />
+                    <DetailedNav />
                     <Main />
                 </React.Fragment>
             )
         }
+        // {isNavVisible ? <Nav /> : <DetailedNav />}
 
         const App = () => {
             ReactDOM.createRoot(document.getElementById("root")).render(<FinalContainer />)
@@ -831,6 +841,7 @@
         window.onload = () => {
             App();
         }
+        
     </script>
 </body>
 </html>
