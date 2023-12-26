@@ -151,7 +151,7 @@ header {
 #microphoneBtn:hover {
   background-color: lightgray;
 }
-#microphone {
+.microphone {
   width: 24px;
   height: 24px;
 }

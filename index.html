@@ -5,9 +5,784 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Youtube</title>
+    <link rel="icon" href="imgs/YouTube.svg">
+    <title> 13주차 Youtube</title>
+    <!-- 리액트 라이브러리 import -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel 라이브러리 import -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
     <div id="root"></div>
-    <script src="main.js"></script>
+
+    <script type="text/babel">
+
+        
+        const HeaderMiddleItem = (props) => {
+            // ------------------- .hoverBtn 호버 이벤트 -------------------
+            const hoverDetailsDisplayBlockEvent = (e) => {
+                const hoverDetails = e.currentTarget.querySelector(".hoverDetails");
+                if (hoverDetails) {
+                    hoverDetails.style.display = "block";
+                }
+            }
+            const hoverDetailsDisplayNoneEvent = (e) => {
+                const hoverDetails = e.currentTarget.querySelector(".hoverDetails");
+                if (hoverDetails) {
+                    hoverDetails.style.display = "none";
+                }
+            }
+
+            const { idName, value, name, imgClassName, imgSrc, tagContent } = props.data
+
+            return (
+                <button id={idName} className="hoverBtn" onMouseOver={hoverDetailsDisplayBlockEvent} onMouseOut={hoverDetailsDisplayNoneEvent} value={value} name={name} type="button">
+                    <img className={imgClassName} src={imgSrc} />
+                    <div className="hoverDetails" style={{display: "none"}}> {tagContent} </div>
+                </button>
+            )
+        }
+
+        const HeaderRightItem = (props) => {
+            // ------------------- .hoverBtn 호버 이벤트 -------------------
+            const hoverDetailsDisplayBlockEvent = (e) => {
+                const hoverDetails = e.currentTarget.querySelector(".hoverDetails");
+                if (hoverDetails) {
+                    hoverDetails.style.display = "block";
+                }
+            }
+            const hoverDetailsDisplayNoneEvent = (e) => {
+                const hoverDetails = e.currentTarget.querySelector(".hoverDetails");
+                if (hoverDetails) {
+                    hoverDetails.style.display = "none";
+                }
+            }
+
+            const { idName, value, name, imgClassName, imgSrc, tagContent } = props.data
+
+            return (
+                <button id={idName} className="headerRightBtns hoverBtn" onMouseOver={hoverDetailsDisplayBlockEvent} onMouseOut={hoverDetailsDisplayNoneEvent} value={value} name={name} type="button">
+                    <img className={imgClassName} src={imgSrc} />
+                    <div id="alarmBadge"> 9+ </div> {/* 두 개 중 하나만 */}
+                    <div className="hoverDetails" style={{display: "none"}}> {tagContent} </div>
+                </button>
+            )
+        }
+
+        let isNavVisible = true;
+
+        const Header = () => {
+
+            const HeaderMiddleItemData = [
+                {
+                    id: 1,
+                    idName: "magnifyingGlassBtn",
+                    value: "검색버튼",
+                    name: "검색",
+                    imgClassName: "magnifyingGlassBtnImg",
+                    imgSrc: "imgs/magnifying-glass-solid.svg",
+                    tagContent: "검색"
+                },
+                {
+                    id: 2,
+                    idName: "microphoneBtn",
+                    value: "음성으로검색버튼",
+                    name: "음성으로 검색",
+                    imgClassName: "microphone",
+                    imgSrc: "imgs/microphone-solid.svg",
+                    tagContent: "음성으로 검색"
+                }
+            ]
+
+            const HeaderRightItemData = [
+                {
+                    id: 1,
+                    idName: "uploadBtn",
+                    value: "업로드버튼",
+                    name: "업로드",
+                    imgClassName: "headerRightIcons",
+                    imgSrc: "imgs/video-solid.svg",
+                    tagContent: "만들기"
+                },
+                {
+                    id: 2,
+                    idName: "alarmBtn",
+                    value: "알림버튼",
+                    name: "알림",
+                    imgClassName: "headerRightIcons",
+                    imgSrc: "imgs/bell-regular.svg",
+                    tagContent: "알림"
+                },
+            ]
+
+            // ------------------- #navOpenBtn 클릭 이벤트 -------------------
+            const navOpenEvent = () => {
+                isNavVisible = !isNavVisible; 
+                console.log(isNavVisible)
+            }
+
+            return (
+
+                <header>
+                    <div id="headerLeft">
+                        <button id="navOpenBtn" onClick={navOpenEvent}>
+                            <img id="navOpenBtnImg" src="imgs/bars-solid.svg" />
+                        </button>
+                        <img id="youtubePremiumLogo" src="imgs/YouTube_Premium_logo.svg" alt="Youtube 홈" />
+                        <span id="countryCode"></span>
+                    </div>
+                    <div id="headerMiddle">
+                        <span id="searchBar">
+                            <div id="searchText">
+                                <input id="searchInput" type="text" placeholder="검색" />
+                                <button id="searchTypingBtn" type="button">
+                                    <img id="searchKeyboard" src="https://www.gstatic.com/inputtools/images/tia.png" />
+                                </button>
+                            </div>
+                            {
+                                HeaderMiddleItemData.map((elem) => {
+                                    return <HeaderMiddleItem key={elem.id} data={elem} />
+                                })
+                            }
+                        </span>
+                        
+                    </div>
+                    <div id="headerRight">
+                        {
+                            HeaderRightItemData.map((elem) => {
+                                return <HeaderRightItem key={elem.id} data={elem} />
+                            })
+                        }
+                        <button id="profileBtn" type="button">
+                            <img id="profileImg" className="headerRightIcons" src="https://yt3.ggpht.com/ytc/AOPolaR8cvVX4lWqRCFMDreXwkxAGUSkd8i-gOk2rmgg80Vag4G8-_Ayo5c9L2NduuJn=s88-c-k-c0x00ffffff-no-rj" />
+                        </button>
+                    </div>
+                </header>
+            )
+        }
+        
+        const NavItem = (props) => {
+            const { value, title, imgSrc, name } = props.data;
+
+            return (
+                <button className="imnav-btn" value={value} title={title}>
+                    <img className="imnav-btn-img" src={imgSrc} />
+                    <div className="imnav-name"> {name} </div>
+                </button>
+            )
+        }
+
+        const Nav = () => {
+
+            const NavBtnData = [
+                {
+                    id: 1,
+                    value: "홈",
+                    title: "홈",
+                    imgSrc: "imgs/house-solid.svg",
+                    name: "홈"
+                },
+                {
+                    id: 2,
+                    value: "Shorts",
+                    title: "Shorts",
+                    imgSrc: "imgs/youtube-shorts-logo.svg",
+                    name: "Shorts"
+                    },
+                {
+                    id: 3,
+                    value: "구독",
+                    title: "구독",
+                    imgSrc: "imgs/warehouse-solid.svg",
+                    name: "구독"
+                },
+                {
+                    id: 4,
+                    value: "YouTube Music",
+                    title: "YouTube Music",
+                    imgSrc: "imgs/database-solid.svg",
+                    name: "YouTube Music"
+                },
+                {
+                    id: 5,
+                    value: "보관함",
+                    title: "보관함",
+                    imgSrc: "imgs/photo-film-solid.svg",
+                    name: "보관함"
+                },
+                {
+                    id: 6,
+                    value: "오프라인 저장 동영상",
+                    title: "오프라인 저장 동영상",
+                    imgSrc: "imgs/download-solid.svg",
+                    name: "오프라인 저장 동영상"
+                }
+            ];
+
+            return (
+                <nav id="implicit-nav">
+                    {
+                        NavBtnData.map((elem) => {
+                            return <NavItem key={elem.id} data={elem} />
+                        })   
+                    }
+                </nav>
+            )
+        }
+
+        const DetailedNavItem = (props) => {
+            const { value, title, className, imgSrc, name } = props.data;
+
+            return (
+                <button className="exnav-btn" value={value} title={title} type="button">
+                    <img className={className} src={imgSrc} />
+                    <div className="exnav-name"> {name} </div>
+                </button>
+            )
+        }
+
+        const DetailedNavFooterItem = (props) => {
+            const { content } = props.data;
+
+            return (
+                <div className = "footer-guide">
+                    {content}
+                </div>
+            )
+        }
+
+        const DetailedNav = () => {
+
+            const DetailedNavBtnHomeData = [
+                {
+                    id: 1,
+                    value: "홈",
+                    title: "홈",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/house-solid.svg", 
+                    name: "홈", 
+                },
+                {
+                    id: 2,
+                    value: "Shorts",
+                    title: "Shorts",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/youtube-shorts-logo.svg", 
+                    name: "Shorts", 
+                },
+                {
+                    id: 3,
+                    value: "구독",
+                    title: "구독",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/warehouse-solid.svg", 
+                    name: "구독", 
+                },
+                {
+                    id: 4,
+                    value: "YouTube Music",
+                    title: "YouTube Music",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/database-solid.svg", 
+                    name: "YouTube Music", 
+                },
+                {
+                    id: 5,
+                    value: "보관함",
+                    title: "보관함",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/photo-film-solid.svg", 
+                    name: "보관함", 
+                },
+                {
+                    id: 6,
+                    value: "시청기록",
+                    title: "시청기록",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/clock-rotate-left-solid.svg", 
+                    name: "시청기록", 
+                },
+                {
+                    id: 7,
+                    value: "내 동영상",
+                    title: "내 동영상",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/square-caret-right-regular.svg", 
+                    name: "내 동영상", 
+                },
+                {
+                    id: 8,
+                    value: "내 영화",
+                    title: "내 영화",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/clapperboard-solid.svg", 
+                    name: "내 영화", 
+                },
+                {
+                    id: 9,
+                    value: "나중에 볼 동영상",
+                    title: "나중에 볼 동영상",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/clock-regular.svg", 
+                    name: "나중에 볼 동영상", 
+                },
+                {
+                    id: 10,
+                    value: "오프라인 저장 동영상",
+                    title: "오프라인 저장 동영상",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/download-solid.svg", 
+                    name: "오프라인 저장 동영상", 
+                },
+                {
+                    id: 11,
+                    value: "더보기",
+                    title: "더보기",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/angle-down-solid.svg", 
+                    name: "더보기", 
+                }
+            ]
+
+            const DetailedNavBtnSubscribeData = [
+                {
+                    id: 1,
+                    value: "YouTube Music",
+                    title: "YouTube Music",
+                    className: "subscribing-channel-img",
+                    imgSrc: "https://yt3.ggpht.com/bMa6Y7qQ6Q0zCt-5M0gxsmHh6gRdU7m4AnJ6LTN1aNxH7nDMNjnB3vucd4sJ_d6olVEMSh-gMg=s68-c-k-c0x00ffffff-no-rj", 
+                    name: "Jazz Melody", 
+                },
+                {
+                    id: 2,
+                    value: "YouTube Music",
+                    title: "YouTube Music",
+                    className: "subscribing-channel-img",
+                    imgSrc: "https://yt3.ggpht.com/aW-CCbaQ2rbDrEvmpjf630Xhh4wiXEAYs_vZuhX7t3T7tqohQGYl1YzpWNORdJwPin6SMtstyw=s68-c-k-c0x00ffffff-no-rj", 
+                    name: "때껄룩ᴛᴀᴋᴇ ᴀ ʟᴏᴏᴋ", 
+                },
+                {
+                    id: 3,
+                    value: "YouTube Music",
+                    title: "YouTube Music",
+                    className: "subscribing-channel-img",
+                    imgSrc: "https://yt3.ggpht.com/Lo23b_zLzkxOi2UyFCCWvRPp7jmVv7qLv3yMgEV1hi7iq2Bf9E4tRIDhhfDPeYdO2dNQAgaaAAQ=s88-c-k-c0x00ffffff-no-rj", 
+                    name: "반고흐가 되고싶어", 
+                },
+                {
+                    id: 4,
+                    value: "YouTube Music",
+                    title: "YouTube Music",
+                    className: "subscribing-channel-img",
+                    imgSrc: "https://yt3.ggpht.com/ytc/AOPolaSBFQ8BAVyWY5yo-CNlnFmJ3LE_7syzZpjG11lntg=s68-c-k-c0x00ffffff-no-rj", 
+                    name: "재즈기자 Jazz Editor", 
+                },
+                {
+                    id: 5,
+                    value: "YouTube Music",
+                    title: "YouTube Music",
+                    className: "subscribing-channel-img",
+                    imgSrc: "https://yt3.ggpht.com/RL_eRSTZjEdc3vAB78wiK6xihSd3wInZ4g1TA3JLzOvxRdJg_2IKqIw8y3CAd03qvgsBb-P5jQ=s68-c-k-c0x00ffffff-no-rj", 
+                    name: "딩고 뮤직 / dingo music", 
+                },
+                {
+                    id: 6,
+                    value: "YouTube Music",
+                    title: "YouTube Music",
+                    className: "subscribing-channel-img",
+                    imgSrc: "https://yt3.ggpht.com/Xo80SrZKXQbOIf3vxV_rbspOArWwdODWrMyQaV_k-xhIKGvCv7h1uPqchD-m8ZDxm59Ix01xxA=s68-c-k-c0x00ffffff-no-rj", 
+                    name: "재즈오빠 Jazzoppa", 
+                },
+                {
+                    id: 7,
+                    value: "YouTube Music",
+                    title: "YouTube Music",
+                    className: "subscribing-channel-img",
+                    imgSrc: "https://yt3.ggpht.com/v-yQ9UVqUgQlxBwlA2qBPI7_QeqbmgrD7uJQiKK4GIvgmrsJeau059F0uFLTRX3XaopNyEm25w=s68-c-k-c0x00ffffff-no-rj", 
+                    name: "때잉", 
+                },
+                {
+                    id: 8,
+                    value: "YouTube Music",
+                    title: "YouTube Music",
+                    className: "subscribing-channel-img",
+                    imgSrc: "https://yt3.ggpht.com/7C7gf_M2SLHMxYY74vn7QPRJuGrc9Ul2ehvf6LXmHDeAVi4-dBiSOGB8bXhMeLz0GYvqzwbk=s68-c-k-c0x00ffffff-no-rj", 
+                    name: "기분Jazz네 | Mood is Jazz", 
+                },
+                {
+                    id: 9,
+                    value: "구독 더보기",
+                    title: "구독 더보기",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/angle-down-solid.svg", 
+                    name: "376개 더보기", 
+                }
+            ]
+
+            const DetailedNavBtnExploreData = [
+                {
+                    id: 1,
+                    value: "인기 급상승",
+                    title: "인기 급상승",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/fire-solid.svg", 
+                    name: "인기 급상승", 
+                },
+                {
+                    id: 2,
+                    value: "쇼핑",
+                    title: "쇼핑",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/bag-shopping-solid.svg", 
+                    name: "쇼핑", 
+                },
+                {
+                    id: 3,
+                    value: "음악",
+                    title: "음악",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/music-solid.svg", 
+                    name: "음악", 
+                },
+                {
+                    id: 4,
+                    value: "영화",
+                    title: "영화",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/clapperboard-solid.svg", 
+                    name: "영화", 
+                },
+                {
+                    id: 5,
+                    value: "YouTube Music",
+                    title: "YouTube Music",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/wifi-solid.svg", 
+                    name: "실시간", 
+                },
+                {
+                    id: 6,
+                    value: "게임",
+                    title: "게임",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/gamepad-solid.svg", 
+                    name: "게임", 
+                },
+                {
+                    id: 7,
+                    value: "스포츠",
+                    title: "스포츠",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/medal-solid.svg", 
+                    name: "스포츠", 
+                },
+                {
+                    id: 8,
+                    value: "학습",
+                    title: "학습",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/lightbulb-regular.svg", 
+                    name: "학습", 
+                }
+            ]
+
+            const DetailedNavBtnExtraData = [
+                {
+                    id: 1,
+                    value: "YouTube Studio",
+                    title: "YouTube Studio",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/youtube-studio.webp", 
+                    name: "YouTube 스튜디오", 
+                },
+                {
+                    id: 2,
+                    value: "YouTube Music",
+                    title: "YouTube Music",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/youtube-music_icon.png", 
+                    name: "YouTube Music", 
+                },
+                {
+                    id: 3,
+                    value: "YouTube Kids",
+                    title: "YouTube Kids",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/youtube-kids.png", 
+                    name: "YouTube Kids", 
+                }
+            ]
+
+            const DetailedNavBtnSettingData = [
+                {
+                    id: 1,
+                    value: "설정",
+                    title: "설정",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/gear-solid.svg", 
+                    name: "설정", 
+                },
+                {
+                    id: 2,
+                    value: "신고 기록",
+                    title: "신고 기록",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/flag-regular.svg", 
+                    name: "신고 기록", 
+                },
+                {
+                    id: 3,
+                    value: "고객센터",
+                    title: "고객센터",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/circle-question-solid.svg", 
+                    name: "고객센터", 
+                },
+                {
+                    id: 4,
+                    value: "의견 보내기",
+                    title: "의견 보내기",
+                    className: "exnav-btn-img",
+                    imgSrc: "imgs/circle-exclamation-solid.svg", 
+                    name: "의견 보내기", 
+                }
+            ]
+            
+            const FooterData = [
+                {
+                    id: 1,
+                    content: "정보 보도자료 저작권 문의하기 크리에이터 광고 개발자"
+                },
+                {
+                    id: 2,
+                    content: "약관 개인정보처리방침 정책 및 안전 YouTube 작동의 원리 새로운 기능 테스트하기"
+                },
+                {
+                    id: 3,
+                    content: "© 2023 Google LLC, Sundar Pichai, 1600 Amphitheatre Parkway, Mountain View CA 94043, USA, 0807-882-594 (무료), yt-support-solutions-kr@google.com, 호스팅: Google LLC, 사업자정보, 불법촬영물 신고 크리에이터들이 유튜브 상에 게시, 태그 또는 추천한 상품들은 판매자들의 약관에 따라 판매됩니다. 유튜브는 이러한 제품들을 판매하지 않으며, 그에 대한 책임을 지지 않습니다."
+                }
+            ]
+
+            return (
+                <nav id="explicit-nav">
+                    <section id="sections">
+                        <div className="guide-section">
+                            {
+                                DetailedNavBtnHomeData.map((elem) => {
+                                    return <DetailedNavItem key={elem.id} data={elem} />
+                                })
+                            }
+                        </div>
+                        <div className="guide-section">
+                            {
+                                DetailedNavBtnSubscribeData.map((elem) => {
+                                    return <DetailedNavItem key={elem.id} data={elem} />
+                                })
+                            }
+                        </div>
+                        <div className="guide-section">
+                            {
+                                DetailedNavBtnExploreData.map((elem) => {
+                                    return <DetailedNavItem key={elem.id} data={elem} />
+                                })
+                            }
+                        </div>
+                        <div className="guide-section">
+                            {
+                                DetailedNavBtnExtraData.map((elem) => {
+                                    return <DetailedNavItem key={elem.id} data={elem} />
+                                })
+                            }
+                        </div>
+                        <div className="guide-section">
+                            {
+                                DetailedNavBtnSettingData.map((elem) => {
+                                    return <DetailedNavItem key={elem.id} data={elem} />
+                                })
+                            }
+                        </div>
+                    </section>
+                    <section id="footer">
+                        {
+                            FooterData.map((elem) => {
+                                return <DetailedNavFooterItem key={elem.id} data={elem} />
+                            })
+                        }
+                    </section>
+                </nav>
+            )
+        }
+
+        const Video = (props) => {
+            const { moveToVideoUrl, thumbnailImgSrc, thumbnailVideoSrc, runningTime, channelProfileUrl, channelProfileImgSrc, videoTitle, channelName, view, upload } = props.data;
+
+            return (
+                <section className="contents-row-item">
+                    <a href={moveToVideoUrl}>
+                        <div className="thumbnail-box">
+                            <img className="thumbnail" src={thumbnailImgSrc} />
+                            <ifram className="thumbnail-video" style={{display: "none"}} src={thumbnailVideoSrc} title="YouTube video player" frameBorder="0"> </ifram>
+                            <div className="time-status"> {runningTime} </div>
+                        </div>
+                    </a>
+                    <div className="contents-details">
+                        <a href={channelProfileUrl}>
+                            <img className="avatar" src={channelProfileImgSrc} />
+                        </a>
+                        <div className="meta">
+                            <h3 className="title"> {videoTitle} </h3>
+                            <div>
+                                <a href={channelProfileUrl}>
+                                    <div className="metadatas"> {channelName} </div>
+                                </a>
+                                <div className="metadatas"> 조회수 {view} ∙ {upload} </div>
+                            </div>
+                        </div>
+                        <button className="detail-btn a-detail" value="세부사항 설정" style={{display: "none"}} type="button">
+                            <img className="details" src="imgs/ellipsis-vertical-solid.svg" />
+                        </button>
+                    </div>
+                </section> 
+            )
+        }
+
+        const Main = () => {
+            const VideoListData = [
+                {
+                    id: 1,
+                    moveToVideoUrl: "https://www.youtube.com/watch?v=VW-Caeb_0OU&t=2s",
+                    thumbnailImgSrc: "https://i.ytimg.com/vi/LqME1y6Mlyg/hq720.jpg?sqp=-…AFwAcABBg==&rs=AOn4CLCxoHJSZG5Jv57PIVNCyxcJ2JfMAg",
+                    thumbnailVideoSrc: "https://www.youtube.com/embed/VW-Caeb_0OU?si=tLR35RQstitiN9bM",
+                    runningTime: "7:59:59",
+                    channelProfileUrl: "https://www.youtube.com/@bossa3047",
+                    channelProfileImgSrc: "https://yt3.ggpht.com/bMa6Y7qQ6Q0zCt-5M0gxsmHh6gRdU7m4AnJ6LTN1aNxH7nDMNjnB3vucd4sJ_d6olVEMSh-gMg=s68-c-k-c0x00ffffff-no-rj",
+                    videoTitle: "[𝐖𝐎𝐑𝐊&𝐉𝐀𝐙𝐙] 사무실에서 일하다가 몰래 리듬타기 좋은 펑키한 재즈비지엠😎💖 l Relaxing Jazz Piano Music for Office, Work, Study",
+                    channelName: "Jazz Melody",
+                    view: "507회",
+                    upload: "1일 전"
+                },
+                {
+                    id: 2,
+                    moveToVideoUrl: "https://www.youtube.com/watch?v=x6i3_LfeTjY",
+                    thumbnailImgSrc: "https://i.ytimg.com/vi/x6i3_LfeTjY/hq720.jpg?sqp=-…AFwAcABBg==&rs=AOn4CLAqeEw2oAWSEkbU9yzkeWa-Kg21SQ",
+                    thumbnailVideoSrc: "https://www.youtube.com/embed/x6i3_LfeTjY?si=eSo1PnaI96cQ6tQT",
+                    runningTime: "4:00:00",
+                    channelProfileUrl: "https://www.youtube.com/@takealook.",
+                    channelProfileImgSrc: "https://yt3.ggpht.com/aW-CCbaQ2rbDrEvmpjf630Xhh4wiXEAYs_vZuhX7t3T7tqohQGYl1YzpWNORdJwPin6SMtstyw=s68-c-k-c0x00ffffff-no-rj",
+                    videoTitle: "𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 질리도록 듣는 히트곡엔 그 이유가 있다𝐅𝐞𝐚𝐭. 𝐋𝐚𝐮𝐯, 𝐋𝐚𝐧𝐲, 𝐇𝐨𝐧𝐧𝐞, 𝐤𝐞𝐬𝐡𝐢, 𝐏𝐞𝐝𝐞𝐫 𝐄𝐥𝐢𝐚𝐬, 𝐓𝐫𝐨𝐲𝐞 𝐒𝐢𝐯𝐚𝐧, 𝐂𝐡𝐚𝐫𝐥𝐢𝐞 𝐏𝐮𝐭𝐡",
+                    channelName: "때껄룩ᴛᴀᴋᴇ ᴀ ʟᴏᴏᴋ",
+                    view: "621만회",
+                    upload: "3개월"
+                },
+                {
+                    id: 3,
+                    moveToVideoUrl: "https://www.youtube.com/watch?v=180ysvIh6kU&t=1s",
+                    thumbnailImgSrc: "https://i.ytimg.com/vi/180ysvIh6kU/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDAwC7NmQpn52EmQ9cd1bA9yVW6Kw",
+                    thumbnailVideoSrc: "https://www.youtube.com/embed/180ysvIh6kU?si=GdndZ4LjT5TKgvCA",
+                    runningTime: "59:45",
+                    channelProfileUrl: "https://www.youtube.com/@Want_To_Be_VanGogh",
+                    channelProfileImgSrc: "https://yt3.ggpht.com/Lo23b_zLzkxOi2UyFCCWvRPp7jmVv7qLv3yMgEV1hi7iq2Bf9E4tRIDhhfDPeYdO2dNQAgaaAAQ=s88-c-k-c0x00ffffff-no-rj",
+                    videoTitle: "[Playlist] 비오는 뉴욕 대학교 감성",
+                    channelName: "반고흐가 되고싶어 Playlist",
+                    view: "195만회",
+                    upload: "4개월"
+                },
+                {
+                    id: 4,
+                    moveToVideoUrl: "https://www.youtube.com/watch?v=F64UhWehLOE",
+                    thumbnailImgSrc: "https://i.ytimg.com/vi/F64UhWehLOE/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBvw5VnIhey2cCQAul0A10tt3PmAw",
+                    thumbnailVideoSrc: "https://www.youtube.com/embed/F64UhWehLOE?si=qwPIK3C6HUTYXThS",
+                    runningTime: "50:25",
+                    channelProfileUrl: "https://www.youtube.com/@jazzeditor",
+                    channelProfileImgSrc: "https://yt3.ggpht.com/ytc/AOPolaSBFQ8BAVyWY5yo-CNlnFmJ3LE_7syzZpjG11lntg=s68-c-k-c0x00ffffff-no-rj",
+                    videoTitle: "[Playlist] 뉴욕의 가을",
+                    channelName: "재즈기자 Jazz Editor",
+                    view: "1.7만회",
+                    upload: "3일 전"
+                },
+                {
+                    id: 5,
+                    moveToVideoUrl: "https://www.youtube.com/watch?v=81yQY3TseKQ",
+                    thumbnailImgSrc: "https://i.ytimg.com/vi/81yQY3TseKQ/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDFPswKeZfkzz2eIs7SdwqlYqFt_g",
+                    thumbnailVideoSrc: "https://www.youtube.com/embed/81yQY3TseKQ?si=rN3HhloLihAQSlk4",
+                    runningTime: "21:05",
+                    channelProfileUrl: "https://www.youtube.com/@DingoMusic",
+                    channelProfileImgSrc: "https://yt3.ggpht.com/RL_eRSTZjEdc3vAB78wiK6xihSd3wInZ4g1TA3JLzOvxRdJg_2IKqIw8y3CAd03qvgsBb-P5jQ=s68-c-k-c0x00ffffff-no-rj",
+                    videoTitle: "혼네의 킬링보이스를 라이브로! - free love, Location Unknown, BACK ON TOP, by my side, Warm On A Cold Night, Day 1",
+                    channelName: "딩고 뮤직 / dingo music",
+                    view: "223만회",
+                    upload: "1년 전"
+                },
+                { 
+                    id: 6,
+                    moveToVideoUrl: "https://www.youtube.com/watch?v=ezzDBTX7Z3w",
+                    thumbnailImgSrc: "https://i.ytimg.com/vi/ezzDBTX7Z3w/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCeowqyOLwCfXVMR4RhNaamOIMn1A",
+                    thumbnailVideoSrc: "https://www.youtube.com/embed/ezzDBTX7Z3w?si=670s8l40UbIdCITs",
+                    runningTime: "8:14:31",
+                    channelProfileUrl: "https://www.youtube.com/@jazzoppa",
+                    channelProfileImgSrc: "https://yt3.ggpht.com/Xo80SrZKXQbOIf3vxV_rbspOArWwdODWrMyQaV_k-xhIKGvCv7h1uPqchD-m8ZDxm59Ix01xxA=s68-c-k-c0x00ffffff-no-rj",
+                    videoTitle: "'재진스 pt.III' | 뉴진스 재즈 플리 pt.III [playlist]",
+                    channelName: "재즈오빠 Jazzoppa",
+                    view: "27만회",
+                    upload: "1개월"
+                },
+                {
+                    id: 7,
+                    moveToVideoUrl: "https://www.youtube.com/watch?v=59qUq5NRMhE&t=26s",
+                    thumbnailImgSrc: "https://i.ytimg.com/vi/59qUq5NRMhE/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBd2puQudZfxhJWV1wAu1AIYCKgLQ",
+                    thumbnailVideoSrc: "https://www.youtube.com/embed/59qUq5NRMhE?si=qm8miqkROfYD9YvE",
+                    runningTime: "1:07:38",
+                    channelProfileUrl: "https://www.youtube.com/@sttaying",
+                    channelProfileImgSrc: "https://yt3.ggpht.com/v-yQ9UVqUgQlxBwlA2qBPI7_QeqbmgrD7uJQiKK4GIvgmrsJeau059F0uFLTRX3XaopNyEm25w=s68-c-k-c0x00ffffff-no-rj",
+                    videoTitle: "베이스 매력 모르는 사람 불쌍해",
+                    channelName: "때잉",
+                    view: "622만회",
+                    upload: "1년 전"
+                },
+                {
+                    id: 8,
+                    moveToVideoUrl: "https://www.youtube.com/watch?v=BshkGKR5iL8",
+                    thumbnailImgSrc: "https://i.ytimg.com/vi/BshkGKR5iL8/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCrF7trszfVd--AeD22kDbqfHrcKg",
+                    thumbnailVideoSrc: "https://www.youtube.com/embed/BshkGKR5iL8?si=Pm2no4ApTQqpyQfM",
+                    runningTime: "10:09:57",
+                    channelProfileUrl: "https://www.youtube.com/@moodisjazz",
+                    channelProfileImgSrc: "https://yt3.ggpht.com/7C7gf_M2SLHMxYY74vn7QPRJuGrc9Ul2ehvf6LXmHDeAVi4-dBiSOGB8bXhMeLz0GYvqzwbk=s68-c-k-c0x00ffffff-no-rj",
+                    videoTitle: "Playlist | 시원한, 보사노바 재즈",
+                    channelName: "기분Jazz네 | Mood is Jazz",
+                    view: "192만회",
+                    upload: "1년 전"
+                }
+            ];
+
+            return (
+                <article>
+                    {
+                        VideoListData.map((elem) => {
+                            return <Video key={elem.id} data={elem} />
+                        })
+                    }
+                </article>
+            )
+        }
+
+        const FinalContainer = () => {
+            return (
+                <React.Fragment>
+                    <Header />
+                    {isNavVisible ? <Nav /> : <DetailedNav />}
+                    <Main />
+                </React.Fragment>
+            )
+        }
+
+        const App = () => {
+            ReactDOM.createRoot(document.getElementById("root")).render(<FinalContainer />)
+        }
+
+        window.onload = () => {
+            App();
+        }
+    </script>
 </body>
+</html>

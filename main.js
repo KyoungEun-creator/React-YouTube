@@ -1,20 +1,3 @@
-
-
-// // ------------------- .hoverBtn 호버 이벤트 -------------------
-// const hoverDetailsDisplayBlockEvent = (e) => {
-//     const hoverDetails = e.currentTarget.querySelector(".hoverDetails");
-//     if (hoverDetails) {
-//         hoverDetails.style.display = "block";
-//     }
-// }
-// const hoverDetailsDisplayNoneEvent = (e) => {
-//     const hoverDetails = e.currentTarget.querySelector(".hoverDetails");
-//     if (hoverDetails) {
-//         hoverDetails.style.display = "none";
-//     }
-// }
-
-
 // ------------------- Header -------------------
 const HeaderLeft = () => {
 
