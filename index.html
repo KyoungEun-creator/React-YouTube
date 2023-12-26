@@ -59,12 +59,14 @@
                 }
             }
 
-            const { idName, value, name, imgClassName, imgSrc, tagContent } = props.data
+            // let shouldDisplayAlarmBadge = true;
+
+            const { id, idName, value, name, imgClassName, imgSrc, tagContent, alarmNum } = props.data
 
             return (
-                <button id={idName} className="headerRightBtns hoverBtn" onMouseOver={hoverDetailsDisplayBlockEvent} onMouseOut={hoverDetailsDisplayNoneEvent} value={value} name={name} type="button">
+                <button key={id} id={idName} className="headerRightBtns hoverBtn" onMouseOver={hoverDetailsDisplayBlockEvent} onMouseOut={hoverDetailsDisplayNoneEvent} value={value} name={name} type="button">
                     <img className={imgClassName} src={imgSrc} />
-                    <div id="alarmBadge"> 9+ </div> {/* 두 개 중 하나만 */}
+                    {alarmNum ? <div id="alarmBadge"> {alarmNum} </div> : ""}
                     <div className="hoverDetails" style={{display: "none"}}> {tagContent} </div>
                 </button>
             )
@@ -82,7 +84,8 @@
                     name: "검색",
                     imgClassName: "magnifyingGlassBtnImg",
                     imgSrc: "imgs/magnifying-glass-solid.svg",
-                    tagContent: "검색"
+                    tagContent: "검색",
+                    
                 },
                 {
                     id: 2,
@@ -94,7 +97,6 @@
                     tagContent: "음성으로 검색"
                 }
             ]
-
             const HeaderRightItemData = [
                 {
                     id: 1,
@@ -103,7 +105,7 @@
                     name: "업로드",
                     imgClassName: "headerRightIcons",
                     imgSrc: "imgs/video-solid.svg",
-                    tagContent: "만들기"
+                    tagContent: "만들기",
                 },
                 {
                     id: 2,
@@ -112,8 +114,9 @@
                     name: "알림",
                     imgClassName: "headerRightIcons",
                     imgSrc: "imgs/bell-regular.svg",
-                    tagContent: "알림"
-                },
+                    tagContent: "알림",
+                    alarmNum: "9+"
+                }
             ]
 
             // ------------------- #navOpenBtn 클릭 이벤트 -------------------
