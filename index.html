@@ -615,14 +615,59 @@
         }
 
         const Video = (props) => {
+
+            // ------------------- .contents-row-item 호버 이벤트 -------------------
+            const thumbnailDisplayNoneEvent = (e) => {
+                const thumbnail = e.currentTarget.querySelector(".thumbnail");
+                if (thumbnail) {
+                    thumbnail.style.opacity = "1"; 
+                    thumbnail.style.display = "none";
+
+                    setTimeout(() => {
+                        thumbnail.style.opacity = "0"; 
+                    }, 80); 
+                }
+
+                const thumbnailVideo = e.currentTarget.querySelector(".thumbnail-video");
+                if (thumbnailVideo) {
+                    thumbnailVideo.style.opacity = "0"; 
+                    thumbnailVideo.style.display = "block";
+
+                    setTimeout(() => {
+                        thumbnailVideo.style.opacity = "1"; 
+                    }, 80);
+                }
+            }
+
+            const thumbnailDisplayBlockEvent = (e) => {
+                const thumbnail = e.currentTarget.querySelector(".thumbnail");
+                if (thumbnail) {
+                    thumbnail.style.opacity = "0"; 
+                    thumbnail.style.display = "block";
+
+                    setTimeout(() => {
+                        thumbnail.style.opacity = "1"; 
+                    }, 80); 
+                }
+                const thumbnailVideo = e.currentTarget.querySelector(".thumbnail-video");
+                if (thumbnailVideo) {
+                    thumbnailVideo.style.opacity = "1";
+                    thumbnailVideo.style.display = "none";
+
+                    setTimeout(() => {
+                        thumbnailVideo.style.opacity = "0"; 
+                    }, 80); 
+                }
+            }
+
             const { moveToVideoUrl, thumbnailImgSrc, thumbnailVideoSrc, runningTime, channelProfileUrl, channelProfileImgSrc, videoTitle, channelName, view, upload } = props.data;
 
             return (
-                <section className="contents-row-item">
+                <section className="contents-row-item" onMouseOver={thumbnailDisplayNoneEvent} onMouseOut={thumbnailDisplayBlockEvent}>
                     <a href={moveToVideoUrl}>
                         <div className="thumbnail-box">
                             <img className="thumbnail" src={thumbnailImgSrc} />
-                            <ifram className="thumbnail-video" style={{display: "none"}} src={thumbnailVideoSrc} title="YouTube video player" frameBorder="0"> </ifram>
+                            <iframe className="thumbnail-video" style={{display: "none"}} src={thumbnailVideoSrc} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen> </iframe>
                             <div className="time-status"> {runningTime} </div>
                         </div>
                     </a>
