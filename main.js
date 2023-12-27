@@ -41,7 +41,8 @@ const HeaderLeft = () => {
     headerLeft.appendChild(youtubePremiumLogo);
 
     const countryCode = document.createElement("span");
-    countryCode.setAttribute("id", "countryCode")
+    countryCode.setAttribute("id", "countryCode");
+    countryCode.innerHTML = "KR";
     headerLeft.appendChild(countryCode);
 
     return headerLeft;
