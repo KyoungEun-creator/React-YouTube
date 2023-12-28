@@ -18,78 +18,53 @@
 
     <script type="text/babel">
 
-        
-        const HeaderMiddleItem = (props) => {
+        const HoverAlertItem = (props) => {
+            const { id, idName, imgId, imgClassName, imgSrc, tagContent, alarmNum } = props.data
+            const { isHover } = props
+
             // ------------------- .hoverBtn 호버 이벤트 -------------------
             const hoverDetailsDisplayBlockEvent = (e) => {
-                const hoverDetails = e.currentTarget.querySelector(".hoverDetails");
+                const hoverDetails = e.currentTarget.querySelector(".hoverDetails")
                 if (hoverDetails) {
-                    hoverDetails.style.display = "block";
+                    hoverDetails.style.display = "block"
                 }
             }
             const hoverDetailsDisplayNoneEvent = (e) => {
-                const hoverDetails = e.currentTarget.querySelector(".hoverDetails");
+                const hoverDetails = e.currentTarget.querySelector(".hoverDetails")
                 if (hoverDetails) {
-                    hoverDetails.style.display = "none";
+                    hoverDetails.style.display = "none"
                 }
             }
 
-            const { idName, value, name, imgClassName, imgSrc, tagContent } = props.data
-
             return (
-                <button id={idName} className="hoverBtn" onMouseOver={hoverDetailsDisplayBlockEvent} onMouseOut={hoverDetailsDisplayNoneEvent} value={value} name={name} type="button">
-                    <img className={imgClassName} src={imgSrc} />
-                    <div className="hoverDetails" style={{display: "none"}}> {tagContent} </div>
+                <button id={idName} className={isHover && "headerRightBtns"} onMouseOver={hoverDetailsDisplayBlockEvent} onMouseOut={hoverDetailsDisplayNoneEvent} type="button">
+                    { imgId
+                        ? <img id={imgId} className={imgClassName} src={imgSrc} />
+                        : <img className={imgClassName} src={imgSrc} />
+                    }
+                    {
+                        alarmNum && <div id="alarmBadge"> {alarmNum} </div> 
+                    }
+                    {
+                        tagContent && <div className="hoverDetails" style={{display: "none"}}> {tagContent} </div>
+                    }
                 </button>
             )
         }
-
-        const HeaderRightItem = (props) => {
-            // ------------------- .hoverBtn 호버 이벤트 -------------------
-            const hoverDetailsDisplayBlockEvent = (e) => {
-                const hoverDetails = e.currentTarget.querySelector(".hoverDetails");
-                if (hoverDetails) {
-                    hoverDetails.style.display = "block";
-                }
-            }
-            const hoverDetailsDisplayNoneEvent = (e) => {
-                const hoverDetails = e.currentTarget.querySelector(".hoverDetails");
-                if (hoverDetails) {
-                    hoverDetails.style.display = "none";
-                }
-            }
-
-            const { id, idName, value, name, imgClassName, imgSrc, tagContent, alarmNum } = props.data
-
-            return (
-                <button key={id} id={idName} className="headerRightBtns hoverBtn" onMouseOver={hoverDetailsDisplayBlockEvent} onMouseOut={hoverDetailsDisplayNoneEvent} value={value} name={name} type="button">
-                    <img className={imgClassName} src={imgSrc} />
-                    {alarmNum ? <div id="alarmBadge"> {alarmNum} </div> : ""}
-                    <div className="hoverDetails" style={{display: "none"}}> {tagContent} </div>
-                </button>
-            )
-        }
-
-        // let isNavVisible = true;
 
         const Header = () => {
 
             const HeaderMiddleItemData = [
                 {
-                    id: 1,
+                    id: "HeaderMiddleItem_1",
                     idName: "magnifyingGlassBtn",
-                    value: "검색버튼",
-                    name: "검색",
                     imgClassName: "magnifyingGlassBtnImg",
                     imgSrc: "imgs/magnifying-glass-solid.svg",
-                    tagContent: "검색",
-                    
+                    tagContent: "검색"
                 },
                 {
-                    id: 2,
+                    id: "HeaderMiddleItem_2",
                     idName: "microphoneBtn",
-                    value: "음성으로검색버튼",
-                    name: "음성으로 검색",
                     imgClassName: "microphone",
                     imgSrc: "imgs/microphone-solid.svg",
                     tagContent: "음성으로 검색"
@@ -97,31 +72,28 @@
             ]
             const HeaderRightItemData = [
                 {
-                    id: 1,
+                    id: "HeaderRightItem_1",
                     idName: "uploadBtn",
-                    value: "업로드버튼",
-                    name: "업로드",
                     imgClassName: "headerRightIcons",
                     imgSrc: "imgs/video-solid.svg",
                     tagContent: "만들기",
                 },
                 {
-                    id: 2,
+                    id: "HeaderRightItem_2",
                     idName: "alarmBtn",
-                    value: "알림버튼",
-                    name: "알림",
                     imgClassName: "headerRightIcons",
                     imgSrc: "imgs/bell-regular.svg",
                     tagContent: "알림",
                     alarmNum: "9+"
+                },
+                {
+                    id: "HeaderRightItem_3",
+                    idName: "profileBtn",
+                    imgId: "profileImg",
+                    imgClassName: "headerRightIcons",
+                    imgSrc: "https://yt3.ggpht.com/ytc/AOPolaR8cvVX4lWqRCFMDreXwkxAGUSkd8i-gOk2rmgg80Vag4G8-_Ayo5c9L2NduuJn=s88-c-k-c0x00ffffff-no-rj",
                 }
             ]
-
-            // ------------------- #navOpenBtn 클릭 이벤트 -------------------
-            // const navOpenEvent = () => {
-            //     isNavVisible = !isNavVisible; 
-            //     console.log(isNavVisible)
-            // }
 
             // ------------------- #navOpenBtn 클릭 이벤트 -------------------
             const navOpenEvent = () => {
@@ -129,11 +101,11 @@
                 const detailedNav = document.getElementById("explicit-nav");
 
                 if (nav.style.display === "block") {
-                    nav.style.display = "none";
-                    detailedNav.style.display = "block";
-                } else if (nav.style.display === 'none') {
-                    nav.style.display = "block";
-                    detailedNav.style.display = "none";
+                    nav.style.display = "none"
+                    detailedNav.style.display = "block"
+                } else if (nav.style.display === "none") {
+                    nav.style.display = "block"
+                    detailedNav.style.display = "none"
                 }
             }
 
@@ -158,7 +130,7 @@
                             </div>
                             {
                                 HeaderMiddleItemData.map((elem) => {
-                                    return <HeaderMiddleItem key={elem.id} data={elem} />
+                                    return <HoverAlertItem key={elem.id} data={elem}/>
                                 })
                             }
                         </span> 
@@ -166,24 +138,21 @@
                     <div id="headerRight">
                         {
                             HeaderRightItemData.map((elem) => {
-                                return <HeaderRightItem key={elem.id} data={elem} />
+                                return <HoverAlertItem key={elem.id} data={elem} isHover/>
                             })
                         }
-                        <button id="profileBtn" type="button">
-                            <img id="profileImg" className="headerRightIcons" src="https://yt3.ggpht.com/ytc/AOPolaR8cvVX4lWqRCFMDreXwkxAGUSkd8i-gOk2rmgg80Vag4G8-_Ayo5c9L2NduuJn=s88-c-k-c0x00ffffff-no-rj" />
-                        </button>
                     </div>
                 </header>
             )
         }
         
         const NavItem = (props) => {
-            const { value, title, imgSrc, name } = props.data;
+            const { value, title, imgSrc, label } = props.data;
 
             return (
                 <button className="imnav-btn" value={value} title={title}>
                     <img className="imnav-btn-img" src={imgSrc} />
-                    <div className="imnav-name"> {name} </div>
+                    <div className="imnav-name"> {label} </div>
                 </button>
             )
         }
@@ -192,46 +161,46 @@
 
             const NavBtnData = [
                 {
-                    id: 1,
+                    id: "NavBtn_1",
                     value: "홈",
                     title: "홈",
                     imgSrc: "imgs/house-solid.svg",
-                    name: "홈"
+                    label: "홈"
                 },
                 {
-                    id: 2,
+                    id: "NavBtn_2",
                     value: "Shorts",
                     title: "Shorts",
                     imgSrc: "imgs/youtube-shorts-logo.svg",
-                    name: "Shorts"
-                    },
+                    label: "Shorts"
+                },
                 {
-                    id: 3,
+                    id: "NavBtn_3",
                     value: "구독",
                     title: "구독",
                     imgSrc: "imgs/warehouse-solid.svg",
-                    name: "구독"
+                    label: "구독"
                 },
                 {
-                    id: 4,
+                    id: "NavBtn_4",
                     value: "YouTube Music",
                     title: "YouTube Music",
                     imgSrc: "imgs/database-solid.svg",
-                    name: "YouTube Music"
+                    label: "YouTube Music"
                 },
                 {
-                    id: 5,
+                    id: "NavBtn_5",
                     value: "보관함",
                     title: "보관함",
                     imgSrc: "imgs/photo-film-solid.svg",
-                    name: "보관함"
+                    label: "보관함"
                 },
                 {
-                    id: 6,
+                    id: "NavBtn_6",
                     value: "오프라인 저장 동영상",
                     title: "오프라인 저장 동영상",
                     imgSrc: "imgs/download-solid.svg",
-                    name: "오프라인 저장 동영상"
+                    label: "오프라인 저장 동영상"
                 }
             ];
 
@@ -247,12 +216,12 @@
         }
 
         const DetailedNavItem = (props) => {
-            const { value, title, className, imgSrc, name } = props.data;
+            const { value, title, className, imgSrc, label } = props.data;
 
             return (
                 <button className="exnav-btn" value={value} title={title} type="button">
                     <img className={className} src={imgSrc} />
-                    <div className="exnav-name"> {name} </div>
+                    <div className="exnav-name"> {label} </div>
                 </button>
             )
         }
@@ -271,310 +240,310 @@
 
             const DetailedNavBtnHomeData = [
                 {
-                    id: 1,
+                    id: "DetailedNavBtnHome_1",
                     value: "홈",
                     title: "홈",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/house-solid.svg", 
-                    name: "홈", 
+                    label: "홈", 
                 },
                 {
-                    id: 2,
+                    id: "DetailedNavBtnHome_2",
                     value: "Shorts",
                     title: "Shorts",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/youtube-shorts-logo.svg", 
-                    name: "Shorts", 
+                    label: "Shorts", 
                 },
                 {
-                    id: 3,
+                    id: "DetailedNavBtnHome_3",
                     value: "구독",
                     title: "구독",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/warehouse-solid.svg", 
-                    name: "구독", 
+                    label: "구독", 
                 },
                 {
-                    id: 4,
+                    id: "DetailedNavBtnHome_4",
                     value: "YouTube Music",
                     title: "YouTube Music",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/database-solid.svg", 
-                    name: "YouTube Music", 
+                    label: "YouTube Music", 
                 },
                 {
-                    id: 5,
+                    id: "DetailedNavBtnHome_5",
                     value: "보관함",
                     title: "보관함",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/photo-film-solid.svg", 
-                    name: "보관함", 
+                    label: "보관함", 
                 },
                 {
-                    id: 6,
+                    id: "DetailedNavBtnHome_6",
                     value: "시청기록",
                     title: "시청기록",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/clock-rotate-left-solid.svg", 
-                    name: "시청기록", 
+                    label: "시청기록", 
                 },
                 {
-                    id: 7,
+                    id: "DetailedNavBtnHome_7",
                     value: "내 동영상",
                     title: "내 동영상",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/square-caret-right-regular.svg", 
-                    name: "내 동영상", 
+                    label: "내 동영상", 
                 },
                 {
-                    id: 8,
+                    id: "DetailedNavBtnHome_8",
                     value: "내 영화",
                     title: "내 영화",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/clapperboard-solid.svg", 
-                    name: "내 영화", 
+                    label: "내 영화", 
                 },
                 {
-                    id: 9,
+                    id: "DetailedNavBtnHome_9",
                     value: "나중에 볼 동영상",
                     title: "나중에 볼 동영상",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/clock-regular.svg", 
-                    name: "나중에 볼 동영상", 
+                    label: "나중에 볼 동영상", 
                 },
                 {
-                    id: 10,
+                    id: "DetailedNavBtnHome_10",
                     value: "오프라인 저장 동영상",
                     title: "오프라인 저장 동영상",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/download-solid.svg", 
-                    name: "오프라인 저장 동영상", 
+                    label: "오프라인 저장 동영상", 
                 },
                 {
-                    id: 11,
+                    id: "DetailedNavBtnHome_11",
                     value: "더보기",
                     title: "더보기",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/angle-down-solid.svg", 
-                    name: "더보기", 
+                    label: "더보기", 
                 }
             ]
 
             const DetailedNavBtnSubscribeData = [
                 {
-                    id: 1,
+                    id: "DetailedNavBtnSubscribe_1",
                     value: "YouTube Music",
                     title: "YouTube Music",
                     className: "subscribing-channel-img",
                     imgSrc: "https://yt3.ggpht.com/bMa6Y7qQ6Q0zCt-5M0gxsmHh6gRdU7m4AnJ6LTN1aNxH7nDMNjnB3vucd4sJ_d6olVEMSh-gMg=s68-c-k-c0x00ffffff-no-rj", 
-                    name: "Jazz Melody", 
+                    label: "Jazz Melody", 
                 },
                 {
-                    id: 2,
+                    id: "DetailedNavBtnSubscribe_2",
                     value: "YouTube Music",
                     title: "YouTube Music",
                     className: "subscribing-channel-img",
                     imgSrc: "https://yt3.ggpht.com/aW-CCbaQ2rbDrEvmpjf630Xhh4wiXEAYs_vZuhX7t3T7tqohQGYl1YzpWNORdJwPin6SMtstyw=s68-c-k-c0x00ffffff-no-rj", 
-                    name: "때껄룩ᴛᴀᴋᴇ ᴀ ʟᴏᴏᴋ", 
+                    label: "때껄룩ᴛᴀᴋᴇ ᴀ ʟᴏᴏᴋ", 
                 },
                 {
-                    id: 3,
+                    id: "DetailedNavBtnSubscribe_3",
                     value: "YouTube Music",
                     title: "YouTube Music",
                     className: "subscribing-channel-img",
                     imgSrc: "https://yt3.ggpht.com/Lo23b_zLzkxOi2UyFCCWvRPp7jmVv7qLv3yMgEV1hi7iq2Bf9E4tRIDhhfDPeYdO2dNQAgaaAAQ=s88-c-k-c0x00ffffff-no-rj", 
-                    name: "반고흐가 되고싶어", 
+                    label: "반고흐가 되고싶어", 
                 },
                 {
-                    id: 4,
+                    id: "DetailedNavBtnSubscribe_4",
                     value: "YouTube Music",
                     title: "YouTube Music",
                     className: "subscribing-channel-img",
                     imgSrc: "https://yt3.ggpht.com/ytc/AOPolaSBFQ8BAVyWY5yo-CNlnFmJ3LE_7syzZpjG11lntg=s68-c-k-c0x00ffffff-no-rj", 
-                    name: "재즈기자 Jazz Editor", 
+                    label: "재즈기자 Jazz Editor", 
                 },
                 {
-                    id: 5,
+                    id: "DetailedNavBtnSubscribe_5",
                     value: "YouTube Music",
                     title: "YouTube Music",
                     className: "subscribing-channel-img",
                     imgSrc: "https://yt3.ggpht.com/RL_eRSTZjEdc3vAB78wiK6xihSd3wInZ4g1TA3JLzOvxRdJg_2IKqIw8y3CAd03qvgsBb-P5jQ=s68-c-k-c0x00ffffff-no-rj", 
-                    name: "딩고 뮤직 / dingo music", 
+                    label: "딩고 뮤직 / dingo music", 
                 },
                 {
-                    id: 6,
+                    id: "DetailedNavBtnSubscribe_6",
                     value: "YouTube Music",
                     title: "YouTube Music",
                     className: "subscribing-channel-img",
                     imgSrc: "https://yt3.ggpht.com/Xo80SrZKXQbOIf3vxV_rbspOArWwdODWrMyQaV_k-xhIKGvCv7h1uPqchD-m8ZDxm59Ix01xxA=s68-c-k-c0x00ffffff-no-rj", 
-                    name: "재즈오빠 Jazzoppa", 
+                    label: "재즈오빠 Jazzoppa", 
                 },
                 {
-                    id: 7,
+                    id: "DetailedNavBtnSubscribe_7",
                     value: "YouTube Music",
                     title: "YouTube Music",
                     className: "subscribing-channel-img",
                     imgSrc: "https://yt3.ggpht.com/v-yQ9UVqUgQlxBwlA2qBPI7_QeqbmgrD7uJQiKK4GIvgmrsJeau059F0uFLTRX3XaopNyEm25w=s68-c-k-c0x00ffffff-no-rj", 
-                    name: "때잉", 
+                    label: "때잉", 
                 },
                 {
-                    id: 8,
+                    id: "DetailedNavBtnSubscribe_8",
                     value: "YouTube Music",
                     title: "YouTube Music",
                     className: "subscribing-channel-img",
                     imgSrc: "https://yt3.ggpht.com/7C7gf_M2SLHMxYY74vn7QPRJuGrc9Ul2ehvf6LXmHDeAVi4-dBiSOGB8bXhMeLz0GYvqzwbk=s68-c-k-c0x00ffffff-no-rj", 
-                    name: "기분Jazz네 | Mood is Jazz", 
+                    label: "기분Jazz네 | Mood is Jazz", 
                 },
                 {
-                    id: 9,
+                    id: "DetailedNavBtnSubscribe_9",
                     value: "구독 더보기",
                     title: "구독 더보기",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/angle-down-solid.svg", 
-                    name: "376개 더보기", 
+                    label: "376개 더보기", 
                 }
             ]
 
             const DetailedNavBtnExploreData = [
                 {
-                    id: 1,
+                    id: "DetailedNavBtnExplore_1",
                     value: "인기 급상승",
                     title: "인기 급상승",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/fire-solid.svg", 
-                    name: "인기 급상승", 
+                    label: "인기 급상승", 
                 },
                 {
-                    id: 2,
+                    id: "DetailedNavBtnExplore_2",
                     value: "쇼핑",
                     title: "쇼핑",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/bag-shopping-solid.svg", 
-                    name: "쇼핑", 
+                    label: "쇼핑", 
                 },
                 {
-                    id: 3,
+                    id: "DetailedNavBtnExplore_3",
                     value: "음악",
                     title: "음악",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/music-solid.svg", 
-                    name: "음악", 
+                    label: "음악", 
                 },
                 {
-                    id: 4,
+                    id: "DetailedNavBtnExplore_4",
                     value: "영화",
                     title: "영화",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/clapperboard-solid.svg", 
-                    name: "영화", 
+                    label: "영화", 
                 },
                 {
-                    id: 5,
+                    id: "DetailedNavBtnExplore_5",
                     value: "YouTube Music",
                     title: "YouTube Music",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/wifi-solid.svg", 
-                    name: "실시간", 
+                    label: "실시간", 
                 },
                 {
-                    id: 6,
+                    id: "DetailedNavBtnExplore_6",
                     value: "게임",
                     title: "게임",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/gamepad-solid.svg", 
-                    name: "게임", 
+                    label: "게임", 
                 },
                 {
-                    id: 7,
+                    id: "DetailedNavBtnExplore_7",
                     value: "스포츠",
                     title: "스포츠",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/medal-solid.svg", 
-                    name: "스포츠", 
+                    label: "스포츠", 
                 },
                 {
-                    id: 8,
+                    id: "DetailedNavBtnExplore_8",
                     value: "학습",
                     title: "학습",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/lightbulb-regular.svg", 
-                    name: "학습", 
+                    label: "학습", 
                 }
             ]
 
             const DetailedNavBtnExtraData = [
                 {
-                    id: 1,
+                    id: "DetailedNavBtnExtra_1",
                     value: "YouTube Studio",
                     title: "YouTube Studio",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/youtube-studio.webp", 
-                    name: "YouTube 스튜디오", 
+                    label: "YouTube 스튜디오", 
                 },
                 {
-                    id: 2,
+                    id: "DetailedNavBtnExtra_2",
                     value: "YouTube Music",
                     title: "YouTube Music",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/youtube-music_icon.png", 
-                    name: "YouTube Music", 
+                    label: "YouTube Music", 
                 },
                 {
-                    id: 3,
+                    id: "DetailedNavBtnExtra_3",
                     value: "YouTube Kids",
                     title: "YouTube Kids",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/youtube-kids.png", 
-                    name: "YouTube Kids", 
+                    label: "YouTube Kids", 
                 }
             ]
 
             const DetailedNavBtnSettingData = [
                 {
-                    id: 1,
+                    id: "DetailedNavBtnSetting_1",
                     value: "설정",
                     title: "설정",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/gear-solid.svg", 
-                    name: "설정", 
+                    label: "설정", 
                 },
                 {
-                    id: 2,
+                    id: "DetailedNavBtnSetting_2",
                     value: "신고 기록",
                     title: "신고 기록",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/flag-regular.svg", 
-                    name: "신고 기록", 
+                    label: "신고 기록", 
                 },
                 {
-                    id: 3,
+                    id: "DetailedNavBtnSetting_3",
                     value: "고객센터",
                     title: "고객센터",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/circle-question-solid.svg", 
-                    name: "고객센터", 
+                    label: "고객센터", 
                 },
                 {
-                    id: 4,
+                    id: "DetailedNavBtnSetting_4",
                     value: "의견 보내기",
                     title: "의견 보내기",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/circle-exclamation-solid.svg", 
-                    name: "의견 보내기", 
+                    label: "의견 보내기", 
                 }
             ]
             
             const FooterData = [
                 {
-                    id: 1,
+                    id: "FooterData_1",
                     content: "정보 보도자료 저작권 문의하기 크리에이터 광고 개발자"
                 },
                 {
-                    id: 2,
+                    id: "FooterData_2",
                     content: "약관 개인정보처리방침 정책 및 안전 YouTube 작동의 원리 새로운 기능 테스트하기"
                 },
                 {
-                    id: 3,
+                    id: "FooterData_3",
                     content: "© 2023 Google LLC, Sundar Pichai, 1600 Amphitheatre Parkway, Mountain View CA 94043, USA, 0807-882-594 (무료), yt-support-solutions-kr@google.com, 호스팅: Google LLC, 사업자정보, 불법촬영물 신고 크리에이터들이 유튜브 상에 게시, 태그 또는 추천한 상품들은 판매자들의 약관에 따라 판매됩니다. 유튜브는 이러한 제품들을 판매하지 않으며, 그에 대한 책임을 지지 않습니다."
                 }
             ]
@@ -630,45 +599,45 @@
         }
 
         const Video = (props) => {
+            const { moveToVideoUrl, thumbnailImgSrc, thumbnailVideoSrc, runningTime, channelProfileUrl, channelProfileImgSrc, videoTitle, channelName, view, upload } = props.data;
+
             // ------------------- .contents-row-item 호버 이벤트 -------------------
             const thumbnailDisplayNoneEvent = (e) => {
-                const thumbnail = e.currentTarget.querySelector(".thumbnail");
+                const thumbnail = e.currentTarget.querySelector(".thumbnail")
                 if (thumbnail) {
-                    thumbnail.style.display = "none";
+                    thumbnail.style.display = "none"
                 }
 
-                const thumbnailVideo = e.currentTarget.querySelector(".thumbnail-video");
+                const thumbnailVideo = e.currentTarget.querySelector(".thumbnail-video")
                 if (thumbnailVideo) {
-                    thumbnailVideo.style.display = "block";
+                    thumbnailVideo.style.display = "block"
                 }
             }
 
             const thumbnailDisplayBlockEvent = (e) => {
                 const thumbnail = e.currentTarget.querySelector(".thumbnail");
                 if (thumbnail) {
-                    thumbnail.style.display = "block";
+                    thumbnail.style.display = "block"
                 }
-                const thumbnailVideo = e.currentTarget.querySelector(".thumbnail-video");
+                const thumbnailVideo = e.currentTarget.querySelector(".thumbnail-video")
                 if (thumbnailVideo) {
-                    thumbnailVideo.style.display = "none";
+                    thumbnailVideo.style.display = "none"
                 }
             }
 
             // ------------------- .contents-details 호버 이벤트 -------------------
             const detailBtnDisplayBlockEvent = (e) => {
-                const detailBtn = e.currentTarget.querySelector(".detail-btn");
+                const detailBtn = e.currentTarget.querySelector(".detail-btn")
                 if (detailBtn) {
-                    detailBtn.style.display = "block";
+                    detailBtn.style.display = "block"
                 }
             }
             const detailBtnDisplayNoneEvent = (e) => {
-                const detailBtn = e.currentTarget.querySelector(".detail-btn");
+                const detailBtn = e.currentTarget.querySelector(".detail-btn")
                 if (detailBtn) {
-                    detailBtn.style.display = "none";
+                    detailBtn.style.display = "none"
                 }
             }
-
-            const { moveToVideoUrl, thumbnailImgSrc, thumbnailVideoSrc, runningTime, channelProfileUrl, channelProfileImgSrc, videoTitle, channelName, view, upload } = props.data;
 
             return (
                 <section className="contents-row-item" onMouseOver={thumbnailDisplayNoneEvent} onMouseOut={thumbnailDisplayBlockEvent}>
@@ -678,32 +647,33 @@
                             <iframe className="thumbnail-video" style={{display: "none"}} src={thumbnailVideoSrc} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen> </iframe>
                             <div className="time-status"> {runningTime} </div>
                         </div>
-                    </a>
-                    <div className="contents-details" onMouseOver={detailBtnDisplayBlockEvent} onMouseOut={detailBtnDisplayNoneEvent}>
-                        <a href={channelProfileUrl}>
-                            <img className="avatar" src={channelProfileImgSrc} />
-                        </a>
-                        <div className="meta">
-                            <h3 className="title"> {videoTitle} </h3>
-                            <div>
-                                <a href={channelProfileUrl}>
-                                    <div className="metadatas"> {channelName} </div>
-                                </a>
-                                <div className="metadatas"> 조회수 {view} ∙ {upload} </div>
+                        <div className="contents-details" onMouseOver={detailBtnDisplayBlockEvent} onMouseOut={detailBtnDisplayNoneEvent}>
+                            <a href={channelProfileUrl}>
+                                <img className="avatar" src={channelProfileImgSrc} />
+                            </a>
+                            <div className="meta">
+                                <h3 className="title"> {videoTitle} </h3>
+                                <div>
+                                    <a href={channelProfileUrl}>
+                                        <div className="metadatas"> {channelName} </div>
+                                    </a>
+                                    <div className="metadatas"> 조회수 {view} ∙ {upload} </div>
+                                </div>
                             </div>
+                            <button className="detail-btn a-detail" value="세부사항 설정" style={{display: "none"}} type="button">
+                                <img className="details" src="imgs/ellipsis-vertical-solid.svg" />
+                            </button>
                         </div>
-                        <button className="detail-btn a-detail" value="세부사항 설정" style={{display: "none"}} type="button">
-                            <img className="details" src="imgs/ellipsis-vertical-solid.svg" />
-                        </button>
-                    </div>
+                    </a>
                 </section> 
             )
         }
 
         const Main = () => {
+
             const VideoListData = [
                 {
-                    id: 1,
+                    id: "video_1",
                     moveToVideoUrl: "https://www.youtube.com/watch?v=VW-Caeb_0OU&t=2s",
                     thumbnailImgSrc: "https://i.ytimg.com/vi/LqME1y6Mlyg/hq720.jpg?sqp=-…AFwAcABBg==&rs=AOn4CLCxoHJSZG5Jv57PIVNCyxcJ2JfMAg",
                     thumbnailVideoSrc: "https://www.youtube.com/embed/VW-Caeb_0OU?si=tLR35RQstitiN9bM",
@@ -716,7 +686,7 @@
                     upload: "1일 전"
                 },
                 {
-                    id: 2,
+                    id: "video_2",
                     moveToVideoUrl: "https://www.youtube.com/watch?v=x6i3_LfeTjY",
                     thumbnailImgSrc: "https://i.ytimg.com/vi/x6i3_LfeTjY/hq720.jpg?sqp=-…AFwAcABBg==&rs=AOn4CLAqeEw2oAWSEkbU9yzkeWa-Kg21SQ",
                     thumbnailVideoSrc: "https://www.youtube.com/embed/x6i3_LfeTjY?si=eSo1PnaI96cQ6tQT",
@@ -729,7 +699,7 @@
                     upload: "3개월"
                 },
                 {
-                    id: 3,
+                    id: "video_3",
                     moveToVideoUrl: "https://www.youtube.com/watch?v=180ysvIh6kU&t=1s",
                     thumbnailImgSrc: "https://i.ytimg.com/vi/180ysvIh6kU/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDAwC7NmQpn52EmQ9cd1bA9yVW6Kw",
                     thumbnailVideoSrc: "https://www.youtube.com/embed/180ysvIh6kU?si=GdndZ4LjT5TKgvCA",
@@ -742,7 +712,7 @@
                     upload: "4개월"
                 },
                 {
-                    id: 4,
+                    id: "video_4",
                     moveToVideoUrl: "https://www.youtube.com/watch?v=F64UhWehLOE",
                     thumbnailImgSrc: "https://i.ytimg.com/vi/F64UhWehLOE/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBvw5VnIhey2cCQAul0A10tt3PmAw",
                     thumbnailVideoSrc: "https://www.youtube.com/embed/F64UhWehLOE?si=qwPIK3C6HUTYXThS",
@@ -755,7 +725,7 @@
                     upload: "3일 전"
                 },
                 {
-                    id: 5,
+                    id: "video_5",
                     moveToVideoUrl: "https://www.youtube.com/watch?v=81yQY3TseKQ",
                     thumbnailImgSrc: "https://i.ytimg.com/vi/81yQY3TseKQ/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDFPswKeZfkzz2eIs7SdwqlYqFt_g",
                     thumbnailVideoSrc: "https://www.youtube.com/embed/81yQY3TseKQ?si=rN3HhloLihAQSlk4",
@@ -768,7 +738,7 @@
                     upload: "1년 전"
                 },
                 { 
-                    id: 6,
+                    id: "video_6",
                     moveToVideoUrl: "https://www.youtube.com/watch?v=ezzDBTX7Z3w",
                     thumbnailImgSrc: "https://i.ytimg.com/vi/ezzDBTX7Z3w/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCeowqyOLwCfXVMR4RhNaamOIMn1A",
                     thumbnailVideoSrc: "https://www.youtube.com/embed/ezzDBTX7Z3w?si=670s8l40UbIdCITs",
@@ -781,7 +751,7 @@
                     upload: "1개월"
                 },
                 {
-                    id: 7,
+                    id: "video_7",
                     moveToVideoUrl: "https://www.youtube.com/watch?v=59qUq5NRMhE&t=26s",
                     thumbnailImgSrc: "https://i.ytimg.com/vi/59qUq5NRMhE/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBd2puQudZfxhJWV1wAu1AIYCKgLQ",
                     thumbnailVideoSrc: "https://www.youtube.com/embed/59qUq5NRMhE?si=qm8miqkROfYD9YvE",
@@ -794,7 +764,7 @@
                     upload: "1년 전"
                 },
                 {
-                    id: 8,
+                    id: "video_8",
                     moveToVideoUrl: "https://www.youtube.com/watch?v=BshkGKR5iL8",
                     thumbnailImgSrc: "https://i.ytimg.com/vi/BshkGKR5iL8/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCrF7trszfVd--AeD22kDbqfHrcKg",
                     thumbnailVideoSrc: "https://www.youtube.com/embed/BshkGKR5iL8?si=Pm2no4ApTQqpyQfM",
@@ -819,7 +789,7 @@
             )
         }
 
-        const FinalContainer = () => {
+        const App = () => {
             return (
                 <React.Fragment>
                     <Header />
@@ -829,17 +799,10 @@
                 </React.Fragment>
             )
         }
-        // {isNavVisible ? <Nav /> : <DetailedNav />}
-        // {alarmNum ? <div id="alarmBadge"> {alarmNum} </div> : ""}
-
-        const App = () => {
-            ReactDOM.createRoot(document.getElementById("root")).render(<FinalContainer />)
-        }
 
         window.onload = () => {
-            App();
+            ReactDOM.createRoot(document.getElementById("root")).render(<App />)
         }
-        
     </script>
 </body>
 </html>
