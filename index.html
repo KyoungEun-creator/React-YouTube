@@ -149,8 +149,22 @@
         const NavItem = (props) => {
             const { value, title, imgSrc, label } = props.data;
 
+            // ------------------- .imnav-btn 호버 이벤트 -------------------
+            const imNavBtnHoverEvent = (e) => {
+                const imNavBtn = e.currentTarget
+                if (imNavBtn) {
+                    imNavBtn.style.backgroundColor = "lightgray";
+                }
+            }
+            const imNavBtnHoverOutEvent = (e) => {
+                const imNavBtn = e.currentTarget
+                if (imNavBtn) {
+                    imNavBtn.style.backgroundColor = "transparent"
+                }
+            }
+
             return (
-                <button className="imnav-btn" value={value} title={title}>
+                <button className="imnav-btn" value={value} title={title} onMouseOver={imNavBtnHoverEvent} onMouseOut={imNavBtnHoverOutEvent}>
                     <img className="imnav-btn-img" src={imgSrc} />
                     <div className="imnav-name"> {label} </div>
                 </button>
@@ -218,8 +232,22 @@
         const DetailedNavItem = (props) => {
             const { value, title, className, imgSrc, label } = props.data;
 
+            // ------------------- .exnav-btn 호버 이벤트 -------------------
+            const exNavBtnHoverEvent = (e) => {
+                const exNavBtn = e.currentTarget
+                if (exNavBtn) {
+                    exNavBtn.style.backgroundColor = "lightgray";
+                }
+            }
+            const exNavBtnHoverOutEvent = (e) => {
+                const exNavBtn = e.currentTarget
+                if (exNavBtn) {
+                    exNavBtn.style.backgroundColor = "transparent"
+                }
+            }
+
             return (
-                <button className="exnav-btn" value={value} title={title} type="button">
+                <button className="exnav-btn" value={value} title={title} type="button" onMouseOver={exNavBtnHoverEvent} onMouseOut={exNavBtnHoverOutEvent}>
                     <img className={className} src={imgSrc} />
                     <div className="exnav-name"> {label} </div>
                 </button>
@@ -647,24 +675,24 @@
                             <iframe className="thumbnail-video" style={{display: "none"}} src={thumbnailVideoSrc} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen> </iframe>
                             <div className="time-status"> {runningTime} </div>
                         </div>
-                        <div className="contents-details" onMouseOver={detailBtnDisplayBlockEvent} onMouseOut={detailBtnDisplayNoneEvent}>
-                            <a href={channelProfileUrl}>
-                                <img className="avatar" src={channelProfileImgSrc} />
-                            </a>
-                            <div className="meta">
-                                <h3 className="title"> {videoTitle} </h3>
-                                <div>
-                                    <a href={channelProfileUrl}>
-                                        <div className="metadatas"> {channelName} </div>
-                                    </a>
-                                    <div className="metadatas"> 조회수 {view} ∙ {upload} </div>
-                                </div>
-                            </div>
-                            <button className="detail-btn a-detail" value="세부사항 설정" style={{display: "none"}} type="button">
-                                <img className="details" src="imgs/ellipsis-vertical-solid.svg" />
-                            </button>
-                        </div>
                     </a>
+                    <div className="contents-details" onMouseOver={detailBtnDisplayBlockEvent} onMouseOut={detailBtnDisplayNoneEvent}>
+                        <a href={channelProfileUrl}>
+                            <img className="avatar" src={channelProfileImgSrc} />
+                        </a>
+                        <div className="meta">
+                            <h3 className="title"> {videoTitle} </h3>
+                            <div>
+                                <a href={channelProfileUrl}>
+                                    <div className="metadatas"> {channelName} </div>
+                                </a>
+                                <div className="metadatas"> 조회수 {view} ∙ {upload} </div>
+                            </div>
+                        </div>
+                        <button className="detail-btn a-detail" value="세부사항 설정" style={{display: "none"}} type="button">
+                            <img className="details" src="imgs/ellipsis-vertical-solid.svg" />
+                        </button>
+                    </div>
                 </section> 
             )
         }

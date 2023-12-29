@@ -233,9 +233,6 @@ header {
   justify-content: center;
   align-items: center;
 }
-.imnav-btn:hover {
-  background-color: lightgray;
-}
 .imnav-btn-img {
   width: 24px;
   height: 24px;
@@ -277,9 +274,6 @@ header {
   background-color: transparent;
   padding: 0 12px;
   cursor: pointer;
-}
-.exnav-btn:hover {
-  background-color: lightgray;
 }
 .exnav-btn-img {
   width: 18px;
@@ -328,9 +322,12 @@ header {
 }
 .footer-guide {
   padding: 10px 24px 0 24px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   font-size: 14px;
   height: fit-content;
+}
+.footer-guide:nth-child(3) {
+  margin-bottom: 60px;
 }
 
 /* ==================== article ==================== */
