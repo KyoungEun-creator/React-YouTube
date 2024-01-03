@@ -23,17 +23,13 @@
             const { isHover } = props
 
             // ------------------- .hoverBtn 호버 이벤트 -------------------
-            const hoverDetailsDisplayBlockEvent = (e) => {
-                const hoverDetails = e.currentTarget.querySelector(".hoverDetails")
-                if (hoverDetails) {
-                    hoverDetails.style.display = "block"
-                }
+            const [isHovered, setIsHovered] = React.useState(false)
+
+            const hoverDetailsDisplayBlockEvent = () => {
+                setIsHovered(true)
             }
-            const hoverDetailsDisplayNoneEvent = (e) => {
-                const hoverDetails = e.currentTarget.querySelector(".hoverDetails")
-                if (hoverDetails) {
-                    hoverDetails.style.display = "none"
-                }
+            const hoverDetailsDisplayNoneEvent = () => {
+                setIsHovered(false)
             }
 
             return (
@@ -46,7 +42,7 @@
                         alarmNum && <div id="alarmBadge"> {alarmNum} </div> 
                     }
                     {
-                        tagContent && <div className="hoverDetails" style={{display: "none"}}> {tagContent} </div>
+                        tagContent && <div className="hoverDetails" style={{display: isHovered ? "block" : "none"}}> {tagContent} </div>
                     }
                 </button>
             )
