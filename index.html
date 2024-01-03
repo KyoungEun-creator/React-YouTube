@@ -625,46 +625,31 @@
             const { moveToVideoUrl, thumbnailImgSrc, thumbnailVideoSrc, runningTime, channelProfileUrl, channelProfileImgSrc, videoTitle, channelName, view, upload } = props.data;
 
             // ------------------- .contents-row-item 호버 이벤트 -------------------
-            const thumbnailDisplayNoneEvent = (e) => {
-                const thumbnail = e.currentTarget.querySelector(".thumbnail")
-                if (thumbnail) {
-                    thumbnail.style.display = "none"
-                }
+            const [isVideoVisible, setIsVideoVisible] = React.useState(false)
 
-                const thumbnailVideo = e.currentTarget.querySelector(".thumbnail-video")
-                if (thumbnailVideo) {
-                    thumbnailVideo.style.display = "block"
-                }
+            const videoDisplayBlockEvent = () => {
+                setIsVideoVisible(true)
+            }
+            const videoDisplayNoneEvent = () => {
+                setIsVideoVisible(false)
             }
 
-            const thumbnailDisplayBlockEvent = (e) => {
-                const thumbnail = e.currentTarget.querySelector(".thumbnail");
-                if (thumbnail) {
-                    thumbnail.style.display = "block"
-                }
-                const thumbnailVideo = e.currentTarget.querySelector(".thumbnail-video")
-                if (thumbnailVideo) {
-                    thumbnailVideo.style.display = "none"
-                }
-            }
-
-            const [isDetailBtnVisible, setIsDetailBtnVisible] = React.useState(false);
+            // ------------------- .contents-details 호버 이벤트" -------------------
+            const [isDetailBtnVisible, setIsDetailBtnVisible] = React.useState(false)
 
             const detailBtnDisplayBlockEvent = () => {
-                setIsDetailBtnVisible(true);
-            };
-
+                setIsDetailBtnVisible(true)
+            }
             const detailBtnDisplayNoneEvent = () => {
-                setIsDetailBtnVisible(false);
-            };
-
+                setIsDetailBtnVisible(false)
+            }
 
             return (
-                <section className="contents-row-item" onMouseOver={thumbnailDisplayNoneEvent} onMouseOut={thumbnailDisplayBlockEvent}>
+                <section className="contents-row-item" onMouseOver={videoDisplayBlockEvent} onMouseOut={videoDisplayNoneEvent}>
                     <a href={moveToVideoUrl}>
                         <div className="thumbnail-box">
-                            <img className="thumbnail" src={thumbnailImgSrc} />
-                            <iframe className="thumbnail-video" style={{display: "none"}} src={thumbnailVideoSrc} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen> </iframe>
+                            <img className="thumbnail" src={thumbnailImgSrc} style={{display: isVideoVisible ? "none" : "block"}}/>
+                            <iframe className="thumbnail-video" style={{display: isVideoVisible ? "block" : "none"}} src={thumbnailVideoSrc} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                             <div className="time-status"> {runningTime} </div>
                         </div>
                     </a>
