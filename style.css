@@ -464,3 +464,73 @@ article {
     padding: 70px 30px 0 30px;
   }
 }
+
+/* ==================== shorts article ==================== */
+#shortsArticle {
+  width: calc(100% - margin-left);
+  height: 626px;
+  justify-content: center;
+  margin-left: 72px;
+  padding: 70px 30px 0 30px;
+  display: flex;
+  flex-direction: row;
+}
+#shortsBtnsContainer {
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+#shortsVideo {
+  width: 352px;
+  height: 100%;
+  margin-right: 15px;
+  border-radius: 10px;
+}
+.shortsBtn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  cursor: pointer;
+}
+.shortsBtnImg {
+  width: 30px;
+  height: 30px;
+  padding: 9px;
+}
+.shortsBtnItem {
+  border-radius: 50%;
+  background-color: lightgray;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+}
+.shortsProfileBtnItem {
+  border: none;
+  border-radius: 5px;
+  background-color: transparent;
+  cursor: pointer;
+}
+.shortsProfileBtnImg {
+  width: 48px;
+  height: 48px;
+  border-radius: 5px;
+}
+.shortsBtnhoverDetails {
+  width: fit-content;
+  position: absolute;
+  padding: 10px;
+  background: rgb(44, 44, 44);
+  left: -20px;
+  transform: translateX(-100%);
+  opacity: 0.8;
+  color: white;
+  font-size: 12px;
+  font-weight: 200;
+  border-radius: 5px;
+  z-index: 100;
+  align-items: center;
+}

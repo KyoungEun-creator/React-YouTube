@@ -139,7 +139,7 @@
         }
         
         const NavItem = (props) => {
-            const { value, title, imgSrc, label } = props.data;
+            const { value, title, imgSrc, label } = props.data
 
             // ------------------- .imnav-btn 호버 이벤트 -------------------
 
@@ -780,13 +780,111 @@
             ];
 
             return (
-                <article>
+                <article style={{display: "none"}}>
                     {
                         VideoListData.map((elem) => {
                             return <Video key={elem.id} data={elem} />
                         })
                     }
                 </article>
+            )
+        }
+
+        const ShortsVideo = () => {
+            return (
+                <img id="shortsVideo" src="imgs/shorts.jpeg" />
+            )
+        }
+
+        const ShortsBtnItem = (props) => {
+            const { imgClassName, imgSrc, label, tagContent } = props.data
+
+            // ------------------- .hoverBtn 호버 이벤트 -------------------
+            const [isHovered, setIsHovered] = React.useState(false)
+
+            const hoverDetailsDisplayBlockEvent = () => {
+                setIsHovered(true)
+            }
+            const hoverDetailsDisplayNoneEvent = () => {
+                setIsHovered(false)
+            }
+
+            return (
+                <div className="shortsBtn" onMouseOver={hoverDetailsDisplayBlockEvent} onMouseOut={hoverDetailsDisplayNoneEvent} >
+                    {imgClassName 
+                        ? (<button className={imgClassName} type="button">
+                            <img src={imgSrc} className="shortsProfileBtnImg" />
+                        </button>)
+                        : (<button className="shortsBtnItem" type="button">
+                            <img src={imgSrc} className="shortsBtnImg" />
+                        </button>)
+                    }
+
+                    {
+                        tagContent && <div className="shortsBtnhoverDetails" style={{display: isHovered ? "block" : "none"}}> {tagContent} </div>
+                    }
+                    {
+                        label && <div> {label} </div>
+                    }
+                </div>
+            )
+        }
+        const ShortsBtnsConatainer = () => {
+            
+            const ShortsBtnData = [
+                {
+                    id: "ShortsBtn_1",
+                    imgSrc: "imgs/thumb-up.png",
+                    label: "11만",
+                    tagContent: "이 동영상이 마음에 듭니다."
+                }, 
+                {
+                    id: "ShortsBtn_2",
+                    imgSrc: "imgs/thumb-down.png",
+                    label: "싫어요",
+                    tagContent: "이 동영상이 마음에 들지 않습니다."
+                }, 
+                {
+                    id: "ShortsBtn_3",
+                    imgSrc: "imgs/comment.png",
+                    label: "2.4천",
+                    tagContent: "댓글"
+                }, 
+                {
+                    id: "ShortsBtn_4",
+                    imgSrc: "imgs/share.png",
+                    label: "공유",
+                    tagContent: "공유"
+                }, 
+                {
+                    id: "ShortsBtn_5",
+                    imgSrc: "imgs/more.png",
+                }, 
+                {
+                    id: "ShortsBtn_6",
+                    imgClassName: "shortsProfileBtnItem",
+                    imgSrc: "https://yt3.ggpht.com/Lo23b_zLzkxOi2UyFCCWvRPp7jmVv7qLv3yMgEV1hi7iq2Bf9E4tRIDhhfDPeYdO2dNQAgaaAAQ=s88-c-k-c0x00ffffff-no-rj",
+                    tagContent: "오리지널 사운드"
+                }
+            ]
+
+            return (
+                <div id="shortsBtnsContainer">
+                    {
+                        ShortsBtnData.map((elem) => {
+                            return <ShortsBtnItem key={elem.id} data={elem}/>
+                        })
+                    }
+                </div>
+            )
+        }
+
+        const Shorts = () => {
+            return (
+                <div id="shortsArticle">
+                    <ShortsVideo />
+                    <ShortsBtnsConatainer />
+                </div>
             )
         }
 
@@ -797,6 +895,7 @@
                     <Nav />
                     <DetailedNav />
                     <Main />
+                    <Shorts />
                 </React.Fragment>
             )
         }
