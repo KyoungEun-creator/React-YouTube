@@ -648,19 +648,16 @@
                 }
             }
 
-            // ------------------- .contents-details 호버 이벤트 -------------------
-            const detailBtnDisplayBlockEvent = (e) => {
-                const detailBtn = e.currentTarget.querySelector(".detail-btn")
-                if (detailBtn) {
-                    detailBtn.style.display = "block"
-                }
-            }
-            const detailBtnDisplayNoneEvent = (e) => {
-                const detailBtn = e.currentTarget.querySelector(".detail-btn")
-                if (detailBtn) {
-                    detailBtn.style.display = "none"
-                }
-            }
+            const [isDetailBtnVisible, setIsDetailBtnVisible] = React.useState(false);
+
+            const detailBtnDisplayBlockEvent = () => {
+                setIsDetailBtnVisible(true);
+            };
+
+            const detailBtnDisplayNoneEvent = () => {
+                setIsDetailBtnVisible(false);
+            };
+
 
             return (
                 <section className="contents-row-item" onMouseOver={thumbnailDisplayNoneEvent} onMouseOut={thumbnailDisplayBlockEvent}>
@@ -684,7 +681,7 @@
                                 <div className="metadatas"> 조회수 {view} ∙ {upload} </div>
                             </div>
                         </div>
-                        <button className="detail-btn a-detail" value="세부사항 설정" style={{display: "none"}} type="button">
+                        <button className="detail-btn a-detail" value="세부사항 설정" style={{display: isDetailBtnVisible ? "block" : "none"}} type="button">
                             <img className="details" src="imgs/ellipsis-vertical-solid.svg" />
                         </button>
                     </div>
