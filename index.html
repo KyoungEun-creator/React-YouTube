@@ -53,6 +53,16 @@
         }
 
         const Header = () => {
+            // ------------------- #navOpenBtn 클릭 이벤트 -------------------
+            const nav = document.getElementById("implicit-nav")
+            const detailedNav = document.getElementById("explicit-nav")
+
+            const [isNavOpen, setIsNavOpen] = React.useState(false);
+
+            const navOpenEvent = () => {
+                setIsNavOpen(!isNavOpen)
+                console.log(isNavOpen)
+            }
 
             const HeaderMiddleItemData = [
                 {
@@ -95,20 +105,6 @@
                 }
             ]
 
-            // ------------------- #navOpenBtn 클릭 이벤트 -------------------
-            const navOpenEvent = () => {
-                const nav = document.getElementById("implicit-nav");
-                const detailedNav = document.getElementById("explicit-nav");
-
-                if (nav.style.display === "block") {
-                    nav.style.display = "none"
-                    detailedNav.style.display = "block"
-                } else if (nav.style.display === "none") {
-                    nav.style.display = "block"
-                    detailedNav.style.display = "none"
-                }
-            }
-
             return (
                 <header>
                     <div id="headerLeft">
@@ -150,21 +146,21 @@
             const { value, title, imgSrc, label } = props.data;
 
             // ------------------- .imnav-btn 호버 이벤트 -------------------
-            const imNavBtnHoverEvent = (e) => {
-                const imNavBtn = e.currentTarget
-                if (imNavBtn) {
-                    imNavBtn.style.backgroundColor = "lightgray";
-                }
-            }
-            const imNavBtnHoverOutEvent = (e) => {
-                const imNavBtn = e.currentTarget
-                if (imNavBtn) {
-                    imNavBtn.style.backgroundColor = "transparent"
-                }
-            }
+
+            const [isHovered, setIsHovered] = React.useState(false)
+
+            const imNavBtnHoverEvent = () => {
+                setIsHovered(true);
+            };
+            const imNavBtnHoverOutEvent = () => {
+                setIsHovered(false);
+            };
+            const btnStyle = {
+                backgroundColor: isHovered ? "lightgray" : "transparent"
+            };
 
             return (
-                <button className="imnav-btn" value={value} title={title} onMouseOver={imNavBtnHoverEvent} onMouseOut={imNavBtnHoverOutEvent}>
+                <button className="imnav-btn" value={value} title={title} onMouseOver={imNavBtnHoverEvent} onMouseOut={imNavBtnHoverOutEvent} style={btnStyle}>
                     <img className="imnav-btn-img" src={imgSrc} />
                     <div className="imnav-name"> {label} </div>
                 </button>
@@ -219,7 +215,7 @@
             ];
 
             return (
-                <nav id="implicit-nav" style={{display: "block"}}>
+                <nav id="implicit-nav">
                     {
                         NavBtnData.map((elem) => {
                             return <NavItem key={elem.id} data={elem} />
@@ -233,21 +229,20 @@
             const { value, title, className, imgSrc, label } = props.data;
 
             // ------------------- .exnav-btn 호버 이벤트 -------------------
-            const exNavBtnHoverEvent = (e) => {
-                const exNavBtn = e.currentTarget
-                if (exNavBtn) {
-                    exNavBtn.style.backgroundColor = "lightgray";
-                }
-            }
-            const exNavBtnHoverOutEvent = (e) => {
-                const exNavBtn = e.currentTarget
-                if (exNavBtn) {
-                    exNavBtn.style.backgroundColor = "transparent"
-                }
-            }
+            const [isHovered, setIsHovered] = React.useState(false)
+
+            const exNavBtnHoverEvent = () => {
+                setIsHovered(true);
+            };
+            const exNavBtnHoverOutEvent = () => {
+                setIsHovered(false);
+            };
+            const btnStyle = {
+                backgroundColor: isHovered ? "lightgray" : "transparent"
+            };
 
             return (
-                <button className="exnav-btn" value={value} title={title} type="button" onMouseOver={exNavBtnHoverEvent} onMouseOut={exNavBtnHoverOutEvent}>
+                <button className="exnav-btn" value={value} title={title} type="button" onMouseOver={exNavBtnHoverEvent} onMouseOut={exNavBtnHoverOutEvent} style={btnStyle}>
                     <img className={className} src={imgSrc} />
                     <div className="exnav-name"> {label} </div>
                 </button>
