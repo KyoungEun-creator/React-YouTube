@@ -212,6 +212,7 @@ header {
 
 /* ==================== implicit nav ==================== */
 #implicit-nav {
+  z-index: 0;
   position: fixed;
   height: 100vh;
   top: 56px;
@@ -249,6 +250,7 @@ header {
 
 /* ==================== explicit nav ==================== */
 #explicit-nav {
+  z-index: 1;
   position: fixed;
   margin-top: 56px;
   padding: 0 4px;
@@ -502,9 +504,13 @@ article {
   padding: 9px;
 }
 .shortsBtnItem {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
   background-color: lightgray;
-  align-items: center;
   border: none;
   cursor: pointer;
 }

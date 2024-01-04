@@ -18,6 +18,20 @@
 
     <script type="text/babel">
 
+        const HeaderContainer = (props) => {
+            const { setPage } = props
+            // ------------------- #navOpenBtn 클릭 이벤트 -------------------
+            const [isNavOpen, setIsNavOpen] = React.useState(false)
+
+
+            return (
+                <>
+                    <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+                    <DetailedNav isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} setPage={setPage} />
+                </>
+            )
+        }
+
         const HoverAlertItem = (props) => {
             const { id, idName, imgId, imgClassName, imgSrc, tagContent, alarmNum } = props.data
             const { isHover } = props
@@ -48,17 +62,8 @@
             )
         }
 
-        const Header = () => {
-            // ------------------- #navOpenBtn 클릭 이벤트 -------------------
-            const nav = document.getElementById("implicit-nav")
-            const detailedNav = document.getElementById("explicit-nav")
-
-            const [isNavOpen, setIsNavOpen] = React.useState(false);
-
-            const navOpenEvent = () => {
-                setIsNavOpen(!isNavOpen)
-                console.log(isNavOpen)
-            }
+        const Header = (props) => {
+            const { isNavOpen, setIsNavOpen } = props
 
             const HeaderMiddleItemData = [
                 {
@@ -101,6 +106,10 @@
                 }
             ]
 
+            const navOpenEvent = () => {
+                setIsNavOpen(!isNavOpen)
+            }
+
             return (
                 <header>
                     <div id="headerLeft">
@@ -140,70 +149,75 @@
         
         const NavItem = (props) => {
             const { value, title, imgSrc, label } = props.data
+            const { setPage } = props
 
             // ------------------- .imnav-btn 호버 이벤트 -------------------
-
             const [isHovered, setIsHovered] = React.useState(false)
 
             const imNavBtnHoverEvent = () => {
                 setIsHovered(true);
-            };
+            }
             const imNavBtnHoverOutEvent = () => {
                 setIsHovered(false);
-            };
+            }
             const btnStyle = {
                 backgroundColor: isHovered ? "lightgray" : "transparent"
-            };
+            }
+
+            const changePageEvent = (pageName) => {
+                setPage(pageName)
+            }
 
             return (
-                <button className="imnav-btn" value={value} title={title} onMouseOver={imNavBtnHoverEvent} onMouseOut={imNavBtnHoverOutEvent} style={btnStyle}>
+                <button className="imnav-btn" value={value} title={title} onMouseOver={imNavBtnHoverEvent} onMouseOut={imNavBtnHoverOutEvent} style={btnStyle} onClick={() => changePageEvent(value)}>
                     <img className="imnav-btn-img" src={imgSrc} />
                     <div className="imnav-name"> {label} </div>
                 </button>
             )
         }
 
-        const Nav = () => {
+        const Nav = (props) => {
+            const { setPage } = props
 
             const NavBtnData = [
                 {
                     id: "NavBtn_1",
-                    value: "홈",
+                    value: "home",
                     title: "홈",
                     imgSrc: "imgs/house-solid.svg",
                     label: "홈"
                 },
                 {
                     id: "NavBtn_2",
-                    value: "Shorts",
+                    value: "shorts",
                     title: "Shorts",
                     imgSrc: "imgs/youtube-shorts-logo.svg",
                     label: "Shorts"
                 },
                 {
                     id: "NavBtn_3",
-                    value: "구독",
+                    value: "subscribe",
                     title: "구독",
                     imgSrc: "imgs/warehouse-solid.svg",
                     label: "구독"
                 },
                 {
                     id: "NavBtn_4",
-                    value: "YouTube Music",
+                    value: "youtubeMusic",
                     title: "YouTube Music",
                     imgSrc: "imgs/database-solid.svg",
                     label: "YouTube Music"
                 },
                 {
                     id: "NavBtn_5",
-                    value: "보관함",
+                    value: "storage",
                     title: "보관함",
                     imgSrc: "imgs/photo-film-solid.svg",
                     label: "보관함"
                 },
                 {
                     id: "NavBtn_6",
-                    value: "오프라인 저장 동영상",
+                    value: "offlineSaved",
                     title: "오프라인 저장 동영상",
                     imgSrc: "imgs/download-solid.svg",
                     label: "오프라인 저장 동영상"
@@ -214,7 +228,7 @@
                 <nav id="implicit-nav">
                     {
                         NavBtnData.map((elem) => {
-                            return <NavItem key={elem.id} data={elem} />
+                            return <NavItem key={elem.id} data={elem} setPage={setPage}/>
                         })   
                     }
                 </nav>
@@ -222,23 +236,28 @@
         }
 
         const DetailedNavItem = (props) => {
-            const { value, title, className, imgSrc, label } = props.data;
+            const { value, title, className, imgSrc, label } = props.data
+            const { setPage } = props
 
             // ------------------- .exnav-btn 호버 이벤트 -------------------
             const [isHovered, setIsHovered] = React.useState(false)
 
             const exNavBtnHoverEvent = () => {
                 setIsHovered(true);
-            };
+            }
             const exNavBtnHoverOutEvent = () => {
                 setIsHovered(false);
-            };
+            }
             const btnStyle = {
                 backgroundColor: isHovered ? "lightgray" : "transparent"
-            };
+            }
+
+            const changePageEvent = (pageName) => {
+                setPage(pageName)
+            }
 
             return (
-                <button className="exnav-btn" value={value} title={title} type="button" onMouseOver={exNavBtnHoverEvent} onMouseOut={exNavBtnHoverOutEvent} style={btnStyle}>
+                <button className="exnav-btn" value={value} title={title} type="button" onMouseOver={exNavBtnHoverEvent} onMouseOut={exNavBtnHoverOutEvent} style={btnStyle} onClick={() => changePageEvent(value)}>
                     <img className={className} src={imgSrc} />
                     <div className="exnav-name"> {label} </div>
                 </button>
@@ -255,12 +274,14 @@
             )
         }
 
-        const DetailedNav = () => {
+        const DetailedNav = (props) => {
+            const { isNavOpen, setIsNavOpen } = props
+            const { setPage } = props
 
             const DetailedNavBtnHomeData = [
                 {
                     id: "DetailedNavBtnHome_1",
-                    value: "홈",
+                    value: "home",
                     title: "홈",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/house-solid.svg", 
@@ -268,7 +289,7 @@
                 },
                 {
                     id: "DetailedNavBtnHome_2",
-                    value: "Shorts",
+                    value: "shorts",
                     title: "Shorts",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/youtube-shorts-logo.svg", 
@@ -276,7 +297,7 @@
                 },
                 {
                     id: "DetailedNavBtnHome_3",
-                    value: "구독",
+                    value: "subscribe",
                     title: "구독",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/warehouse-solid.svg", 
@@ -284,7 +305,7 @@
                 },
                 {
                     id: "DetailedNavBtnHome_4",
-                    value: "YouTube Music",
+                    value: "youtubeMusic",
                     title: "YouTube Music",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/database-solid.svg", 
@@ -292,7 +313,7 @@
                 },
                 {
                     id: "DetailedNavBtnHome_5",
-                    value: "보관함",
+                    value: "storage",
                     title: "보관함",
                     className: "exnav-btn-img",
                     imgSrc: "imgs/photo-film-solid.svg", 
@@ -568,40 +589,40 @@
             ]
 
             return (
-                <nav id="explicit-nav" style={{display: "none"}}>
+                <nav id="explicit-nav" style={{ display: isNavOpen ? "block" : "none" }}>
                     <section id="sections">
                         <div className="guide-section">
                             {
                                 DetailedNavBtnHomeData.map((elem) => {
-                                    return <DetailedNavItem key={elem.id} data={elem} />
+                                    return <DetailedNavItem key={elem.id} data={elem} setPage={setPage} />
                                 })
                             }
                         </div>
                         <div className="guide-section">
                             {
                                 DetailedNavBtnSubscribeData.map((elem) => {
-                                    return <DetailedNavItem key={elem.id} data={elem} />
+                                    return <DetailedNavItem key={elem.id} data={elem} setPage={setPage} />
                                 })
                             }
                         </div>
                         <div className="guide-section">
                             {
                                 DetailedNavBtnExploreData.map((elem) => {
-                                    return <DetailedNavItem key={elem.id} data={elem} />
+                                    return <DetailedNavItem key={elem.id} data={elem} setPage={setPage} />
                                 })
                             }
                         </div>
                         <div className="guide-section">
                             {
                                 DetailedNavBtnExtraData.map((elem) => {
-                                    return <DetailedNavItem key={elem.id} data={elem} />
+                                    return <DetailedNavItem key={elem.id} data={elem} setPage={setPage} />
                                 })
                             }
                         </div>
                         <div className="guide-section">
                             {
                                 DetailedNavBtnSettingData.map((elem) => {
-                                    return <DetailedNavItem key={elem.id} data={elem} />
+                                    return <DetailedNavItem key={elem.id} data={elem} setPage={setPage} />
                                 })
                             }
                         </div>
@@ -616,7 +637,7 @@
                 </nav>
             )
         }
-
+       
         const Video = (props) => {
             const { moveToVideoUrl, thumbnailImgSrc, thumbnailVideoSrc, runningTime, channelProfileUrl, channelProfileImgSrc, videoTitle, channelName, view, upload } = props.data;
 
@@ -780,7 +801,7 @@
             ];
 
             return (
-                <article style={{display: "none"}}>
+                <article>
                     {
                         VideoListData.map((elem) => {
                             return <Video key={elem.id} data={elem} />
@@ -829,6 +850,7 @@
                 </div>
             )
         }
+        
         const ShortsBtnsConatainer = () => {
             
             const ShortsBtnData = [
@@ -889,16 +911,24 @@
         }
 
         const App = () => {
+            const [page, setPage] = React.useState("home")
+
             return (
                 <React.Fragment>
-                    <Header />
-                    <Nav />
-                    <DetailedNav />
-                    <Main />
-                    <Shorts />
+                    <HeaderContainer setPage={setPage} />
+                    <Nav setPage={setPage}/>
+                    { 
+                        page === "home" 
+                        ? <Main /> 
+                        : page === "shorts" 
+                            ? <Shorts/> 
+                            : null
+                }
                 </React.Fragment>
             )
         }
+        //(헤더, 디테일네브) or (네브, 디테일, 메인, 쇼츠)
+        // -> 네브에 있는 거 눌렀을 때 헤더가 리랜더링 되는 것은 막도록 한다. 
 
         window.onload = () => {
             ReactDOM.createRoot(document.getElementById("root")).render(<App />)
