@@ -499,8 +499,8 @@ article {
   cursor: pointer;
 }
 .shortsBtnImg {
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   padding: 9px;
 }
 .shortsBtnItem {
@@ -510,9 +510,12 @@ article {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background-color: lightgray;
+  background-color: #efefef;
   border: none;
   cursor: pointer;
+}
+.shortsBtnItem:hover {
+  background-color: lightgray;
 }
 .shortsProfileBtnItem {
   border: none;
@@ -539,4 +542,7 @@ article {
   border-radius: 5px;
   z-index: 100;
   align-items: center;
+}
+.shortsBtnLabel {
+  font-size: 15px;
 }

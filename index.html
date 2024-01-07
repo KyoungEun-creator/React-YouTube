@@ -27,13 +27,13 @@
             return (
                 <>
                     <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
-                    <DetailedNav isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} setPage={setPage} />
+                    <DetailedNav isNavOpen={isNavOpen} setPage={setPage} />
                 </>
             )
         }
 
         const HoverAlertItem = (props) => {
-            const { id, idName, imgId, imgClassName, imgSrc, tagContent, alarmNum } = props.data
+            const { idName, imgId, imgClassName, imgSrc, tagContent, alarmNum } = props.data
             const { isHover } = props
 
             // ------------------- .hoverBtn 호버 이벤트 -------------------
@@ -155,10 +155,10 @@
             const [isHovered, setIsHovered] = React.useState(false)
 
             const imNavBtnHoverEvent = () => {
-                setIsHovered(true);
+                setIsHovered(true)
             }
             const imNavBtnHoverOutEvent = () => {
-                setIsHovered(false);
+                setIsHovered(false)
             }
             const btnStyle = {
                 backgroundColor: isHovered ? "lightgray" : "transparent"
@@ -243,10 +243,10 @@
             const [isHovered, setIsHovered] = React.useState(false)
 
             const exNavBtnHoverEvent = () => {
-                setIsHovered(true);
+                setIsHovered(true)
             }
             const exNavBtnHoverOutEvent = () => {
-                setIsHovered(false);
+                setIsHovered(false)
             }
             const btnStyle = {
                 backgroundColor: isHovered ? "lightgray" : "transparent"
@@ -651,7 +651,7 @@
                 setIsVideoVisible(false)
             }
 
-            // ------------------- .contents-details 호버 이벤트" -------------------
+            // ------------------- .contents-details 호버 이벤트 -------------------
             const [isDetailBtnVisible, setIsDetailBtnVisible] = React.useState(false)
 
             const detailBtnDisplayBlockEvent = () => {
@@ -659,6 +659,27 @@
             }
             const detailBtnDisplayNoneEvent = () => {
                 setIsDetailBtnVisible(false)
+            }
+
+            // ------------------- upload 시점과 현시점 간의 차이 계산을 통한 경과기간 도출 모듈 -------------------
+            const now = new Date()
+            const currentYear = now.getFullYear()
+            const currentMonth = now.getMonth()+1
+            const currentDate = now.getDate()
+
+            let uploadMention = ""
+            const uploadYear = upload.split('.')[0]
+            const uploadMonth = upload.split('.')[1]
+            const uploadDate = upload.split('.')[2]
+
+            if (currentYear - uploadYear > 0) {
+                uploadMention = `${currentYear - uploadYear}년 전`
+            }
+            else if (currentMonth - uploadMonth > 0) {
+                uploadMention = `${currentMonth - uploadMonth}개월 전`
+            }
+            else if (currentDate - uploadDate > 0) {
+                uploadMention = `${currentDate - uploadDate}일 전`
             }
 
             return (
@@ -680,7 +701,7 @@
                                 <a href={channelProfileUrl}>
                                     <div className="metadatas"> {channelName} </div>
                                 </a>
-                                <div className="metadatas"> 조회수 {view} ∙ {upload} </div>
+                                <div className="metadatas"> 조회수 {view} ∙ {uploadMention} </div>
                             </div>
                         </div>
                         <button className="detail-btn a-detail" value="세부사항 설정" style={{display: isDetailBtnVisible ? "block" : "none"}} type="button">
@@ -705,7 +726,7 @@
                     videoTitle: "[𝐖𝐎𝐑𝐊&𝐉𝐀𝐙𝐙] 사무실에서 일하다가 몰래 리듬타기 좋은 펑키한 재즈비지엠😎💖 l Relaxing Jazz Piano Music for Office, Work, Study",
                     channelName: "Jazz Melody",
                     view: "507회",
-                    upload: "1일 전"
+                    upload: "2023. 9. 18."
                 },
                 {
                     id: "video_2",
@@ -718,7 +739,7 @@
                     videoTitle: "𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 질리도록 듣는 히트곡엔 그 이유가 있다𝐅𝐞𝐚𝐭. 𝐋𝐚𝐮𝐯, 𝐋𝐚𝐧𝐲, 𝐇𝐨𝐧𝐧𝐞, 𝐤𝐞𝐬𝐡𝐢, 𝐏𝐞𝐝𝐞𝐫 𝐄𝐥𝐢𝐚𝐬, 𝐓𝐫𝐨𝐲𝐞 𝐒𝐢𝐯𝐚𝐧, 𝐂𝐡𝐚𝐫𝐥𝐢𝐞 𝐏𝐮𝐭𝐡",
                     channelName: "때껄룩ᴛᴀᴋᴇ ᴀ ʟᴏᴏᴋ",
                     view: "621만회",
-                    upload: "3개월"
+                    upload: "2023. 6. 9."
                 },
                 {
                     id: "video_3",
@@ -731,7 +752,7 @@
                     videoTitle: "[Playlist] 비오는 뉴욕 대학교 감성",
                     channelName: "반고흐가 되고싶어 Playlist",
                     view: "195만회",
-                    upload: "4개월"
+                    upload: "2023. 5. 5."
                 },
                 {
                     id: "video_4",
@@ -744,7 +765,7 @@
                     videoTitle: "[Playlist] 뉴욕의 가을",
                     channelName: "재즈기자 Jazz Editor",
                     view: "1.7만회",
-                    upload: "3일 전"
+                    upload: "2023. 9. 16."
                 },
                 {
                     id: "video_5",
@@ -757,7 +778,7 @@
                     videoTitle: "혼네의 킬링보이스를 라이브로! - free love, Location Unknown, BACK ON TOP, by my side, Warm On A Cold Night, Day 1",
                     channelName: "딩고 뮤직 / dingo music",
                     view: "223만회",
-                    upload: "1년 전"
+                    upload: "2022. 6. 28."
                 },
                 { 
                     id: "video_6",
@@ -770,7 +791,7 @@
                     videoTitle: "'재진스 pt.III' | 뉴진스 재즈 플리 pt.III [playlist]",
                     channelName: "재즈오빠 Jazzoppa",
                     view: "27만회",
-                    upload: "1개월"
+                    upload: "2023. 7. 31."
                 },
                 {
                     id: "video_7",
@@ -783,7 +804,7 @@
                     videoTitle: "베이스 매력 모르는 사람 불쌍해",
                     channelName: "때잉",
                     view: "622만회",
-                    upload: "1년 전"
+                    upload: "2022. 1. 15."
                 },
                 {
                     id: "video_8",
@@ -796,7 +817,7 @@
                     videoTitle: "Playlist | 시원한, 보사노바 재즈",
                     channelName: "기분Jazz네 | Mood is Jazz",
                     view: "192만회",
-                    upload: "1년 전"
+                    upload: "2022. 7. 16."
                 }
             ];
 
@@ -845,7 +866,7 @@
                         tagContent && <div className="shortsBtnhoverDetails" style={{display: isHovered ? "block" : "none"}}> {tagContent} </div>
                     }
                     {
-                        label && <div> {label} </div>
+                        label && <div className="shortsBtnLabel"> {label} </div>
                     }
                 </div>
             )
@@ -927,8 +948,6 @@
                 </React.Fragment>
             )
         }
-        //(헤더, 디테일네브) or (네브, 디테일, 메인, 쇼츠)
-        // -> 네브에 있는 거 눌렀을 때 헤더가 리랜더링 되는 것은 막도록 한다. 
 
         window.onload = () => {
             ReactDOM.createRoot(document.getElementById("root")).render(<App />)
